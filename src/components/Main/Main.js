@@ -1,12 +1,16 @@
 import './Main.css';
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 
 function Main() {
   return (
+  <>
+    <Header />
     <div className="Main">
-      <header className="Main__header">
-        
-      </header>
+      страница Main
     </div>
+    <Footer />
+  </>
   );
 }
 
