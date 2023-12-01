@@ -4,6 +4,7 @@
   min-height: 74px;
   width: 100vw;
   background-color: #202020;
+  max-width: 1280px;
 }
 
 .header__logo {
@@ -58,4 +59,8 @@
   margin-top: 70px;
   margin-bottom: 40px;
   margin-left: 0;
+}
+
+.header-main{
+  background-color: #073042;
 }

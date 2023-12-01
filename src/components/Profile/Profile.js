@@ -40,7 +40,7 @@ function Profile() {
 
         </form >
        
-          <p className="profile__link-q">Редактировать</p>
+          <a href="#" className="profile__link-q">Редактировать</a>
             <Link className="profile__link" to="/signin">Выйти из аккаунта</Link>
           
       
