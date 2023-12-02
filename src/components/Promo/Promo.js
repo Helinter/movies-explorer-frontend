@@ -9,7 +9,7 @@ function Promo() {
             <button className="promo__container__button">Узнать больше</button>
 
       </div>
-     <img alt="weblogo" src={logo} className="promo__logo"/>
+     <img className="promo__logo" alt="weblogo" src={logo} />
     </div>
   );
 }
