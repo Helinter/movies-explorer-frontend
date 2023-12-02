@@ -1,0 +1,7 @@
+.movies{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgba(32, 32, 32, 1);
+  }
+  
