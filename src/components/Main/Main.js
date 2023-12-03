@@ -11,11 +11,18 @@ import AboutProject from '../AboutProject/AboutProject'
 function Main() {
   return (
     <>
-      <Header />
+
+      <div className="sea-background">
+        <Header />
+      </div>
       <div className="main">
-        <Promo />
+        <div className="sea-background">
+          <Promo />
+        </div>
         <AboutProject />
+        <div className="grey-background">
         <Techs />
+        </div>
         <AboutMe />
         <Portfolio />
       </div>

@@ -1,10 +1,10 @@
 .aboutMe {
   display: flex;
   flex-direction: column;
-  padding-left: 70px;
-  padding-right: 70px;
   padding-bottom: 101px;
   background-color: #202020;
+  max-width: 1140px;
+  margin: auto;
 }
 
 .aboutMe__title {
