@@ -48,3 +48,7 @@
   width: 100px;
   height: 52px;
 }
+
+.searchForm__button:hover{
+  opacity: 80%;
+}
