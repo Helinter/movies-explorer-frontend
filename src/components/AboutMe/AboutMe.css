@@ -80,3 +80,15 @@
   border-radius: 10px;
   object-fit: contain;
 }
+
+@media only screen and (max-width: 1279px) {
+  .aboutMe__container__avatar {
+    width: 255px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .aboutMe__container__avatar {
+    width: 292px;
+  }
+}

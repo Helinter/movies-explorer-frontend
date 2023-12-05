@@ -22,7 +22,7 @@
   display: grid;
   grid-template-rows: 60px 1px 60px 1px 60px;
   padding-top: 70px;
-  width: 1140px;
+  max-width: 1140px;
 }
 
 .portfolio__item {
