@@ -32,7 +32,7 @@ function Navigation() {
   return (
     <>
       {isContainerActive && (
-      <div className="navigation__overlay"></div>
+        <div className="navigation__overlay"></div>
       )}
 
       {isLoggedIn ? (

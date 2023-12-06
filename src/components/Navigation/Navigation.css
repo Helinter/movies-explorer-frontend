@@ -107,6 +107,10 @@ border-radius: 6px;
     margin-bottom: 92px;
   }
 
+  .navigation__link.active {
+    border-bottom: 2px solid rgba(255, 255, 255, 1);
+  }
+
   .navigation__container_active .navigation__link {
     display: flex;
   }
