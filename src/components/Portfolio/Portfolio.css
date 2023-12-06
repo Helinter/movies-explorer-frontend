@@ -7,6 +7,13 @@
     margin: auto;
 }
 
+@media only screen and (max-width: 1279px) {
+  .portfolio {
+    max-width: 668px;
+    padding-bottom: 90px;
+  }
+}
+
 .portfolio__title {
   margin: 0;
   padding: 0;
@@ -23,6 +30,12 @@
   grid-template-rows: 60px 1px 60px 1px 60px;
   padding-top: 70px;
   max-width: 1140px;
+}
+
+@media only screen and (max-width: 1279px) {
+  .portfolio__container {
+    padding-top: 50px;
+  }
 }
 
 .portfolio__item {
@@ -46,6 +59,12 @@
   font-size: 30px;
   line-height: 50px;
   letter-spacing: -4%;
+}
+
+@media only screen and (max-width: 1279px) {
+  .portfolio__item__title {
+    font-size: 28px;
+  }
 }
 
 .portfolio__item__link{

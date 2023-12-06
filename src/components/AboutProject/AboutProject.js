@@ -5,11 +5,11 @@ function AboutProject() {
       <div className="about-project__container">
         <div className="about-project__container__table">
           <p className="about-project__container__table__title">Дипломный проект включал 5 этапов</p>
-          <p className="about-project__container__table__subtitle">Составление плана, работу над бэкендом, вёрстку, добавление<br></br>функциональности и финальные доработки.</p>
+          <p className="about-project__container__table__subtitle">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
         </div>
         <div className="about-project__container__table">
           <p className="about-project__container__table__title">На выполнение диплома ушло 5 недель</p>
-          <p className="about-project__container__table__subtitle">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было<br></br>соблюдать, чтобы успешно защититься.</p>
+          <p className="about-project__container__table__subtitle">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </div>
       </div>
       <div className="about-project__time">
