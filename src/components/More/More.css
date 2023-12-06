@@ -23,4 +23,11 @@
   border-radius: 6px;
   margin-top: 50px;
   margin-bottom: 80px;
+  min-width: 1140px;
+}
+
+@media only screen and (max-width: 1279px) {
+  .more__button {
+    min-width: 708px;
+  }
 }

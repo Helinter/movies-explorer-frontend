@@ -21,6 +21,7 @@ function Profile() {
             />
             <label className="profile__input-label" for="profileName">Имя</label>
           </div>
+          <div className="profile__divider"></div>
           <div className="profile__input-container">
             <input
               id="profileEmail"
