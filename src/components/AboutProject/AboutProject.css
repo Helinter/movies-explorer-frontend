@@ -13,6 +13,13 @@
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project {
+    max-width: 284px;
+    padding-bottom: 83px;
+  }
+}
+
 .about-project__title {
   margin: 0;
   padding: 0;
@@ -25,6 +32,15 @@
   margin-bottom: 23px;
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__title {
+    font-size: 18px;
+    line-height: 21.78px;
+    margin-top: 70px;
+    margin-bottom: 28px;
+  }
+}
+
 .about-project__container {
   border-top: 1px solid #DADADA;
   display: flex;
@@ -32,6 +48,13 @@
   padding-top: 70px;
   max-width: 1140px;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+  .about-project__container {
+    padding-top: 60px;
+    flex-direction: column;
+  }
 }
 
 .about-project__container__table {
@@ -57,6 +80,14 @@
   letter-spacing: -4%;
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__container__table__title {
+    font-size: 18px;
+    line-height: 21.78px;
+    max-width: 284px;
+  }
+}
+
 .about-project__container__table__subtitle {
   margin: 0;
   padding: 0;
@@ -76,11 +107,28 @@
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__container__table__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 16px;
+    margin-bottom: 56px;
+    max-width: 284px;
+  }
+}
+
 .about-project__time {
   display: flex;
   flex-direction: row;
   height: 36px;
   align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .about-project__time {
+    margin-top: 19px;
+    max-width: 284px;
+  }
 }
 
 .about-project__time-discription-one {
@@ -97,6 +145,13 @@
 @media only screen and (max-width: 1279px) {
   .about-project__time-discription-one {
     min-width: 140px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .about-project__time-discription-one {
+    max-width: 100px;
+    min-width: 100px;
   }
 }
 
@@ -117,6 +172,13 @@
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__time-discription-four {
+    max-width: 184px;
+    min-width: 184px;
+  }
+}
+
 .about-project__time-backend{
   margin: 0;
   padding: 0;
@@ -124,11 +186,23 @@
   margin-top: 14px;
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__time-backend {
+    max-width: 100px;
+  }
+}
+
 .about-project__time-frontend{
   margin: 0;
   padding: 0;
   color: #8B8B8B;
   margin-top: 14px;
+}
+
+@media only screen and (max-width: 767px) {
+  .about-project__time-frontend {
+    max-width: 184px;
+  }
 }
 
 
@@ -142,6 +216,12 @@
   justify-content: center;
 }
 
+@media only screen and (max-width: 767px) {
+  .about-project__time-week {
+    max-width: 100px;
+  }
+}
+
 .about-project__time-month{
   margin: 0;
   padding: 0;
@@ -150,4 +230,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .about-project__time-month {
+    max-width: 184px;
+  }
 }
