@@ -5,6 +5,12 @@
   margin-bottom: 44px;
 }
 
+@media only screen and (max-width: 767px) {
+  .filterCheckbox {
+    margin-bottom: 64px;
+  }
+}
+
 .filterCheckbox__text {
   margin: 0;
   padding: 0;
@@ -13,6 +19,12 @@
   font-size: 13px;
   line-height: 18px;
   margin-left: 14px;
+}
+
+@media only screen and (max-width: 767px) {
+  .filterCheckbox__text {
+    font-size: 11px;
+  }
 }
 
 .filterCheckbox__checkbox {

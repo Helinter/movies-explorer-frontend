@@ -48,24 +48,24 @@
   margin: auto;
 }
 
-.navigation__profile__icon-container{
+.navigation__profile__icon-container {
   width: 30px;
   height: 30px;
   display: flex;
-align-items: center;
-margin-left: 13px;
-background-color: rgba(49, 49, 49, 1);
-border-radius: 6px;
+  align-items: center;
+  margin-left: 13px;
+  background-color: rgba(49, 49, 49, 1);
+  border-radius: 6px;
 }
 
-.navigation__profile__icon-container-main{
+.navigation__profile__icon-container-main {
   width: 30px;
   height: 30px;
   display: flex;
-align-items: center;
-margin-left: 13px;
-background-color: rgba(15, 65, 87, 1);
-border-radius: 6px;
+  align-items: center;
+  margin-left: 13px;
+  background-color: rgba(15, 65, 87, 1);
+  border-radius: 6px;
 }
 
 .navigation__menu-button {
@@ -86,16 +86,15 @@ border-radius: 6px;
     margin-top: 28px;
   }
 
-  .navigation__overlay{
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 1);
-    opacity: 30%;
+  @media only screen and (max-width: 767px) {
+    .navigation__link {
+      font-size: 18px;
+      line-height: 21.78px;
+      margin-top: 24px;
+    }
+
   }
+
 
   .navigation__link:first-child {
     margin-right: 0;
@@ -107,26 +106,36 @@ border-radius: 6px;
     margin-bottom: 92px;
   }
 
+  @media only screen and (max-width: 767px) {
+    .navigation__link:last-child {
+      margin-bottom: 48px;
+      margin-top: 444px;
+    }
+  }
+  
+
   .navigation__link.active {
     border-bottom: 2px solid rgba(255, 255, 255, 1);
   }
+
+
 
   .navigation__container_active .navigation__link {
     display: flex;
   }
 
-  .navigation__profile{
+  .navigation__profile {
     margin-left: 0;
   }
 
-  .navigation__menu-button_active{
+  .navigation__menu-button_active {
     background-image: url(../../images/Group.svg);
     width: 30px;
-  height: 30px;
-  padding: 0;
-  position: fixed;
-  top: 16px;
-  right: 16px;
+    height: 30px;
+    padding: 0;
+    position: fixed;
+    top: 16px;
+    right: 16px;
   }
 
   .navigation__container_active {
@@ -148,7 +157,18 @@ border-radius: 6px;
     display: flex;
   }
 
-  .navigation__profile__icon-container-main_active{
+  .navigation__profile__icon-container-main_active {
     background-color: rgba(49, 49, 49, 1);
   }
+}
+
+.navigation__overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 1);
+  opacity: 30%;
 }

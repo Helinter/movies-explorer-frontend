@@ -13,6 +13,12 @@
   }
 }
 
+@media only screen and (max-width: 767px) {
+  .searchForm {
+    max-width: 292px;
+  }
+}
+
 .searchForm__input__container {
   display: flex;
   flex-direction: row;
@@ -38,6 +44,13 @@
   margin-bottom: 26px;
 }
 
+@media only screen and (max-width: 767px) {
+  .searchForm__input {
+    max-height: 56px;
+    margin-bottom: 31px;
+  }
+}
+
 .searchForm__button {
   position: absolute;
   right: 10px;
@@ -57,4 +70,13 @@
 
 .searchForm__button:hover{
   opacity: 80%;
+}
+
+@media only screen and (max-width: 767px) {
+  .searchForm__button {
+    width: 80px;
+    height: 44px;
+    padding: 0;
+    top: 76px;
+  }
 }

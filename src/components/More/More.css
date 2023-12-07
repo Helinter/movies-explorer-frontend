@@ -3,6 +3,15 @@
   margin-right: 70px;
 }
 
+@media only screen and (max-width: 767px) {
+  .more {
+    min-width: 300px;
+    max-width: 300px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .more__button {
   border: none;
   outline: none;
@@ -29,5 +38,12 @@
 @media only screen and (max-width: 1279px) {
   .more__button {
     min-width: 708px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .more__button {
+    min-width: auto;
+    max-width: 300px;
   }
 }

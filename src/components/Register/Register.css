@@ -5,6 +5,13 @@
     flex-direction: column;
 }
 
+@media only screen and (max-width: 767px) {
+  .register {
+    max-width: 300px;
+    align-items: center;
+  }
+}
+
 .signup__input {
   border: none;
   appearance: none;
@@ -26,6 +33,12 @@
 
 .signup__input:focus {
   border-bottom-color: #4285F4;
+}
+
+@media only screen and (max-width: 767px) {
+  .signup__input {
+    max-width: 300px;
+  }
 }
 
 .signup__button{
@@ -53,6 +66,14 @@
 
 .signup__button:hover{
 opacity: 80%;
+}
+
+@media only screen and (max-width: 767px) {
+  .signup__button {
+    max-width: 300px;
+    margin-top: 222px;
+    margin-bottom: 14px;
+  }
 }
 
 .signup__link{
@@ -86,9 +107,22 @@ opacity: 80%;
   color: #8B8B8B;
 }
 
+@media only screen and (max-width: 767px) {
+  .signup__link-q {
+    margin-bottom: 30px;
+  }
+}
+
 .register__input-container{
   position: relative;
 }
+
+@media only screen and (max-width: 767px) {
+  .register__input-container {
+    max-width: 300px;
+  }
+}
+
 
 .register__input-label {
   position: absolute;
@@ -103,6 +137,13 @@ line-height: 12.1px;
 color: #8B8B8B;
 }
 
+@media only screen and (max-width: 767px) {
+  .register__input-label {
+    max-width: 300px;
+  }
+}
+
+
 .register__title{
   margin: 0;
   padding: 0;
@@ -111,4 +152,10 @@ color: #8B8B8B;
 font-weight: 500;
 font-size: 24px;
 line-height: 29.05px;
+}
+
+@media only screen and (max-width: 767px) {
+  .register__title {
+    margin-bottom: 80px;
+  }
 }
