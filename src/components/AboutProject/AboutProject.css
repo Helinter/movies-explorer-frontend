@@ -1,7 +1,7 @@
 .about-project {
   display: flex;
   flex-direction: column;
-  padding-bottom: 140px;
+  padding-bottom: 125px;
   max-width: 1140px;
   margin: auto;
 }
@@ -27,9 +27,9 @@
   font-weight: 400;
   font-size: 22px;
   line-height: 26.63px;
-  letter-spacing: -4%;
-  margin-top: 110px;
+  margin-top: 112px;
   margin-bottom: 23px;
+  letter-spacing: -0.04em;
 }
 
 @media only screen and (max-width: 767px) {
@@ -45,9 +45,8 @@
   border-top: 1px solid #DADADA;
   display: flex;
   flex-direction: row;
-  padding-top: 70px;
+  padding-top: 69px;
   max-width: 1140px;
-  justify-content: space-between;
 }
 
 @media only screen and (max-width: 767px) {
@@ -61,6 +60,10 @@
   margin: 0;
   padding: 0;
   width: 500px;
+}
+
+.about-project__container-table:last-child {
+ margin-left: 90px;
 }
 
 @media only screen and (max-width: 1279px) {
@@ -77,7 +80,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24.2px;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 @media only screen and (max-width: 767px) {
@@ -122,6 +125,7 @@
   flex-direction: row;
   height: 36px;
   align-items: center;
+  margin-top: 16px;
 }
 
 @media only screen and (max-width: 767px) {

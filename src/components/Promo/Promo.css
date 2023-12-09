@@ -106,6 +106,10 @@ max-width: 310px;
   border-radius: 3px;
   margin-bottom: 25px;
   margin-top: 146px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 @media only screen and (max-width: 1279px) {
@@ -123,7 +127,7 @@ max-width: 310px;
 
 .promo__logo{
 height: 304px;
-margin-left: 185px;
+margin-left: 190px;
 }
 
 @media only screen and (max-width: 1279px) {

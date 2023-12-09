@@ -39,6 +39,7 @@
   letter-spacing: -4%;
   margin-top: 100px;
   margin-bottom: 23px;
+  letter-spacing: -0.04em;
 }
 
 .techs__container {
@@ -64,7 +65,6 @@
 .techs__container-table {
   margin: 0;
   padding: 0;
-  width: 550px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -80,7 +80,7 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   text-align: center;
 }
 
@@ -100,9 +100,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
   text-align: center;
   margin-top: 26px;
+  max-width: 460px;
 }
 
 @media only screen and (max-width: 1279px) {
@@ -121,7 +122,6 @@
 }
 
 .technology {
-
   margin: 0;
   padding: 0;
   display: grid;
@@ -161,6 +161,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 16.94px;
+  letter-spacing: -0.04em;
 }
 
 @media only screen and (max-width: 1279px) {

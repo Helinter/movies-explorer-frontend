@@ -42,7 +42,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  padding-top: 50px;
+  padding-top: 60px;
   max-width: 100%;
 }
 
@@ -83,9 +83,8 @@
 .portfolio__container-item-link {
   text-decoration: none;
   color: inherit;
-  height: 60px;
+  height: 50px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -104,7 +103,7 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 50px;
-  letter-spacing: -4%;
+  letter-spacing: -0.04em;
 }
 
 @media only screen and (max-width: 1279px) {
