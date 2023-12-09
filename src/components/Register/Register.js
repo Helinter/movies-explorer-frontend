@@ -6,7 +6,7 @@ function Register() {
     <>
       <Header />
       <section className="register">
-        <p className="register__title">Добро пожаловать!</p>
+        <h1 className="register__title">Добро пожаловать!</h1>
         <form >
           <div className="register__input-container">
             <input

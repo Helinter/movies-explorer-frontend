@@ -6,7 +6,7 @@ function Profile() {
   <>
     <Header />
       <section className="profile">
-        <p className="profile__title">Привет, Виталий!</p>
+        <h1 className="profile__title">Привет, Виталий!</h1>
         <form >
         <div className="profile__input-container">
             <input

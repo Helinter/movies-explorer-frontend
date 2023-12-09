@@ -6,7 +6,7 @@ function Login() {
   <>
     <Header />
       <section className="register">
-        <p className="register__title">Рады видеть!</p>
+        <h1 className="register__title">Рады видеть!</h1>
         <form >
           <div className="register__input-container">
             <input

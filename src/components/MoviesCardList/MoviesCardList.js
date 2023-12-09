@@ -9,13 +9,13 @@ function MoviesCardList() {
   const numberOfCardsToRender = isSavedMoviesPage ? 3 : 12;
 
   return (
-    <>
-      <section className={cardListClass}>
-        {[...Array(numberOfCardsToRender)].map((_, index) => (
-          <MoviesCard key={index} />
-        ))}
-      </section>
-    </>
+    <ul className={cardListClass}>
+      {[...Array(numberOfCardsToRender)].map((_, index) => (
+        <li key={index}>
+          <MoviesCard />
+        </li>
+      ))}
+    </ul>
   );
 }
 
