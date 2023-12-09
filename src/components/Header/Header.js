@@ -1,5 +1,5 @@
-import { useLocation } from 'react-router-dom';
-import logo from '../../images/logo.png';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 
 function Header() {
@@ -9,7 +9,9 @@ function Header() {
 
   return (
     <header className={`header${isAuthPage ? ' header-auth' : ''}${isMainPage ? ' header-main' : ''}`}>
-      <img className={`header__logo${isAuthPage ? ' header__logo-auth' : ''}`} src={logo} alt="Лого" />
+      <Link to="/" className={`header__logo${isAuthPage ? ' header__logo-auth' : ''}`}>
+        <img src={logo} alt="Лого" />
+      </Link>
       {!isAuthPage && <Navigation />}
     </header>
   );

@@ -11,18 +11,18 @@ function Navigation() {
   const [isContainerActive, setIsContainerActive] = useState(false);
 
   const buttonToggle = () => {
-    const navMenu = document.querySelector('.navigation__container');
+    const navMenu = document.querySelector('.navigation');
     const menuButton = document.querySelector('.navigation__menu-button');
-    const profileicon = document.querySelector('.navigation__profile__icon-container-main');
+    const profileicon = document.querySelector('.navigation__profile-icon-container-main');
 
-    // Переключение класса на элементе .navigation__container
-    navMenu.classList.toggle('navigation__container_active');
+    // Переключение класса на элементе .navigation
+    navMenu.classList.toggle('navigation_active');
 
     // Переключение класса на элементе .navigation__menu-button
     menuButton.classList.toggle('navigation__menu-button_active');
 
     if (profileicon) {
-      profileicon.classList.toggle('navigation__profile__icon-container-main_active');
+      profileicon.classList.toggle('navigation__profile-icon-container-main_active');
     }
 
     // Обновление состояния на основе текущего состояния
@@ -32,11 +32,11 @@ function Navigation() {
   return (
     <>
       {isContainerActive && (
-        <div className="navigation__overlay"></div>
+        <div className="overlay"></div>
       )}
 
       {isLoggedIn ? (
-        <div className={`navigation__container ${isContainerActive ? 'navigation__container_active' : ''}`}>
+        <div className={`navigation ${isContainerActive ? 'navigation_active' : ''}`}>
           {isContainerActive && (
             <NavLink className="navigation__link" to="/" activeClassName="header__link_active">
               Главная
@@ -54,9 +54,9 @@ function Navigation() {
           <button className="navigation__menu-button" onClick={buttonToggle}></button>
           <NavLink className="navigation__link" to="/profile">
             <div className="navigation__profile">
-              <p className="navigation__profile__text">Аккаунт</p>
-              <div className={`navigation__profile__icon-container${isMainPage ? '-main' : ''}`}>
-                <div className="navigation__profile__icon"></div>
+              <p className="navigation__profile-text">Аккаунт</p>
+              <div className={`navigation__profile-icon-container${isMainPage ? '-main' : ''}`}>
+                <div className="navigation__profile-icon"></div>
               </div>
             </div>
           </NavLink>

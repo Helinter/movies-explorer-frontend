@@ -39,7 +39,7 @@
   }
 }
 
-.promo__container__title{
+.promo__container-title{
 margin: 0;
 padding: 0;
 font-family: 'Inter', Arial, sans-serif;
@@ -50,7 +50,7 @@ line-height: 58px;
 
 
 @media only screen and (max-width: 1279px) {
-  .promo__container__title {
+  .promo__container-title {
     font-size: 40px;
     line-height: 50px;
     text-align: center;
@@ -59,7 +59,7 @@ line-height: 58px;
 }
 
 @media only screen and (max-width: 767px) {
-  .promo__container__title {
+  .promo__container-title {
     margin-top: 44px;
     font-size: 30px;
     line-height: 38px;
@@ -67,7 +67,7 @@ line-height: 58px;
   }
 }
 
-.promo__container__subtitle{
+.promo__container-subtitle{
   margin: 0;
 padding: 0;
 font-family: 'Inter', Arial, sans-serif;
@@ -80,7 +80,7 @@ max-width: 310px;
 }
 
 @media only screen and (max-width: 1279px) {
-  .promo__container__subtitle {
+  .promo__container-subtitle {
     text-align: center;
     margin-top: 22px;
     max-width: 260px;
@@ -88,12 +88,12 @@ max-width: 310px;
 }
 
 @media only screen and (max-width: 767px) {
-  .promo__container__subtitle {
+  .promo__container-subtitle {
     margin-top: 24px;
   }
 }
 
-.promo__container__button{
+.promo__container-button{
   width: 129px;
   height: 36px;
   margin: 0;
@@ -109,13 +109,13 @@ max-width: 310px;
 }
 
 @media only screen and (max-width: 1279px) {
-  .promo__container__button {
+  .promo__container-button {
     margin-top: 92px;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .promo__container__button {
+  .promo__container-button {
     margin-top: 80px;
     margin-bottom: 0;
   }

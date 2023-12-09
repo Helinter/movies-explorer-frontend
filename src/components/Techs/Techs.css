@@ -61,19 +61,19 @@
   }
 }
 
-.techs__container__table {
+.techs__container-table {
   margin: 0;
   padding: 0;
   width: 550px;
 }
 
 @media only screen and (max-width: 767px) {
-  .techs__container__table {
+  .techs__container-table {
     max-width: 292px;
   }
 }
 
-.techs__container__table__title {
+.techs__container-table-title {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
@@ -85,7 +85,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .techs__container__table__title {
+  .techs__container-table-title {
     max-width: 284px;
     font-size: 30px;
     line-height: 36.31px;
@@ -93,7 +93,7 @@
   }
 }
 
-.techs__container__table__subtitle {
+.techs__container-table-subtitle {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
@@ -106,13 +106,13 @@
 }
 
 @media only screen and (max-width: 1279px) {
-  .techs__container__table__subtitle {
+  .techs__container-table-subtitle {
     margin-top: 22px;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .techs__container__table__subtitle {
+  .techs__container-table-subtitle {
     margin-top: 24px;
     font-size: 11px;
   line-height: 16px;
@@ -120,7 +120,7 @@
   }
 }
 
-.technology__container {
+.technology {
   display: grid;
   grid-template-columns: repeat(7, 90px);
   gap: 10px;
@@ -130,21 +130,21 @@
 }
 
 @media only screen and (max-width: 1279px) {
-  .technology__container {
+  .technology {
     grid-template-columns: repeat(7, 84px);
     margin-top: 83px;
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .technology__container {
+  .technology {
     margin-top: 50px;
     grid-template-columns: repeat(2, 84px);
     grid-template-rows: repeat(4, 57px);
   }
 }
 
-.technology__container__fit {
+.technology__fit {
   background-color: #303030;
   width: 90px;
   height: 60px;
@@ -161,7 +161,7 @@
 }
 
 @media only screen and (max-width: 1279px) {
-  .technology__container__fit {
+  .technology__fit {
     width: 84px;
     font-family: 'Inter', sans-serif;
     font-weight: 400;

@@ -60,7 +60,7 @@
   }
 }
 
-.footer__container__text {
+.footer__container-text {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
@@ -69,7 +69,7 @@
   line-height: 15.73px;
 }
 
-.footer__container__text:nth-child(2) {
+.footer__container-text:nth-child(2) {
   text-align: right;
   margin-left: auto;
   margin-right: 20px;
@@ -77,19 +77,19 @@
 
 @media only screen and (max-width: 767px) {
 
-  .footer__container__text{
+  .footer__container-text{
     font-size: 12px;
     line-height: 14.52px;
   }
 
-  .footer__container__text:nth-child(2) {
+  .footer__container-text:nth-child(2) {
     margin: 0;
     margin-top: 12px;
   }
-  .footer__container__text:first-child{
+  .footer__container-text:first-child{
     margin-top: 30px;
   }
-  .footer__container__text:last-child{
+  .footer__container-text:last-child{
     margin-top: 30px;
     margin-bottom: 20px;
     color: rgba(139, 139, 139, 1);
