@@ -5,7 +5,7 @@ function Login() {
   return (
   <>
     <Header />
-      <div className="register">
+      <section className="register">
         <p className="register__title">Рады видеть!</p>
         <form >
           <div className="register__input-container">
@@ -42,7 +42,7 @@ function Login() {
             <Link className="signup__link" to="/signup"> Регистрация</Link>
           </p>
       
-      </div >
+      </section >
   </>
   );
 }

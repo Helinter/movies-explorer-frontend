@@ -8,11 +8,11 @@ function More({ showButton = true }) {
   }
 
   return (
-    <div className="more">
+    <section className="more">
       <button type="button" className="more__button">
         Ещё
       </button>
-    </div>
+    </section>
   );
 }
 

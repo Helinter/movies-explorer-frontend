@@ -10,11 +10,11 @@ function MoviesCardList() {
 
   return (
     <>
-      <div className={cardListClass}>
+      <section className={cardListClass}>
         {[...Array(numberOfCardsToRender)].map((_, index) => (
           <MoviesCard key={index} />
         ))}
-      </div>
+      </section>
     </>
   );
 }

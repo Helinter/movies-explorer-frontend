@@ -1,6 +1,6 @@
 function AboutProject() {
   return (
-    <div className="about-project" id="about-project">
+    <section className="about-project" id="about-project">
       <p className="about-project__title">О проекте</p>
       <div className="about-project__container">
         <div className="about-project__container-table">
@@ -22,7 +22,7 @@ function AboutProject() {
         <p className="about-project__time-frontend">Front-end</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

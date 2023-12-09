@@ -1,6 +1,6 @@
 function Portfolio() {
   return (
-    <div className="portfolio">
+    <section className="portfolio">
       <p className="portfolio__title">Портфолио</p>
       <div className="portfolio__container">
         <div className="portfolio__container-item">
@@ -18,7 +18,7 @@ function Portfolio() {
           <a target="_blank" className="portfolio__container-item-link" href="https://daragan.dev.nomoredomainsmonster.ru/" ></a>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

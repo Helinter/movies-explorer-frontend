@@ -10,13 +10,13 @@ function NotFound() {
   };
 
   return (
-    <div className="NotFound">
+    <section className="NotFound">
       <h1 className="NotFound__title">404</h1>
       <p className="NotFound__subtitle">Страница не найдена</p>
       <Link className="NotFound__link" onClick={handleGoBack}>
         Назад
       </Link>
-    </div>
+    </section>
   );
 }
 

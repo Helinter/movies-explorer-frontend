@@ -5,7 +5,7 @@ function Profile() {
   return (
   <>
     <Header />
-      <div className="profile">
+      <section className="profile">
         <p className="profile__title">Привет, Виталий!</p>
         <form >
         <div className="profile__input-container">
@@ -45,7 +45,7 @@ function Profile() {
             <Link className="profile__link" to="/signin">Выйти из аккаунта</Link>
           
       
-      </div >
+      </section >
   </>
   );
 }

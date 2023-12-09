@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
 
-      <div className="page">
+      <main className="page">
 
         <Routes>
 
@@ -27,7 +27,7 @@ function App() {
 
         </Routes>
 
-      </div>
+      </main>
 
     </Router>
   );

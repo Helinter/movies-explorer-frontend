@@ -14,7 +14,7 @@ function Main() {
       <div className="sea-background">
         <Header />
       </div>
-      <div className="main">
+      <section className="main">
         <div className="sea-background">
           <Promo />
         </div>
@@ -24,7 +24,7 @@ function Main() {
         </div>
         <AboutMe />
         <Portfolio />
-      </div>
+      </section>
       <Footer />
     </>
   );

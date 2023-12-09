@@ -5,7 +5,7 @@ function Register() {
   return (
     <>
       <Header />
-      <div className="register">
+      <section className="register">
         <p className="register__title">Добро пожаловать!</p>
         <form >
           <div className="register__input-container">
@@ -54,7 +54,7 @@ function Register() {
             <Link className="signup__link" to="/signin"> Войти</Link>
           </p>
       
-      </div >
+      </section >
     </>
   );
 }

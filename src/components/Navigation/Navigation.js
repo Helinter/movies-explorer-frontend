@@ -36,7 +36,7 @@ function Navigation() {
       )}
 
       {isLoggedIn ? (
-        <div className={`navigation ${isContainerActive ? 'navigation_active' : ''}`}>
+        <section className={`navigation ${isContainerActive ? 'navigation_active' : ''}`}>
           {isContainerActive && (
             <NavLink className="navigation__link" to="/" activeClassName="header__link_active">
               Главная
@@ -60,7 +60,7 @@ function Navigation() {
               </div>
             </div>
           </NavLink>
-        </div>
+        </section>
       ) : (
         <>
           <Link className="header__link" to="/signup">

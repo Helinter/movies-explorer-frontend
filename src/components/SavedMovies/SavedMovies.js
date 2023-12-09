@@ -8,11 +8,11 @@ function SavedMovies() {
   return (
   <>
     <Header />
-    <div className="savedMovies">
+    <section className="savedMovies">
     <SearchForm />
       <MoviesCardList />
       <More showButton={false} />
-    </div>
+    </section>
     <Footer />
   </>
   );
