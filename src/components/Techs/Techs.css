@@ -36,10 +36,24 @@
   font-weight: 400;
   font-size: 22px;
   line-height: 26.63px;
-  letter-spacing: -4%;
   margin-top: 100px;
   margin-bottom: 23px;
   letter-spacing: -0.04em;
+}
+
+@media only screen and (max-width: 1279px) {
+  .techs__title {
+    margin-top: 91px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .techs__title {
+    margin-top: 68px;
+    margin-bottom: 28px;
+    font-size: 18px;
+line-height: 22px;
+  }
 }
 
 .techs__container {
@@ -109,6 +123,8 @@
 @media only screen and (max-width: 1279px) {
   .techs__container-table-subtitle {
     margin-top: 22px;
+  font-size: 12px;
+  line-height: 18px;
   }
 }
 
@@ -167,6 +183,7 @@
 @media only screen and (max-width: 1279px) {
   .technology__fit {
     width: 84px;
+    height: 57px;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 12px;

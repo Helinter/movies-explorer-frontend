@@ -7,10 +7,11 @@
   border-radius: 6px;
 }
 
-@media only screen and (max-width: 1279px) {
-  .moviesCard {
-    max-width: 342px;
-  }
+@media only screen and (max-width: 767px){
+.moviesCard {
+    margin-bottom: -8px;
+    max-width: 300px;
+}
 }
 
 @media only screen and (max-width: 767px) {

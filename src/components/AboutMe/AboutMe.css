@@ -33,6 +33,21 @@
   margin-bottom: 23px;
 }
 
+@media only screen and (max-width: 1279px) {
+  .aboutMe__title {
+    margin-top: 90px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .aboutMe__title {
+    margin-top: 69px;
+    margin-bottom: 29px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
 .aboutMe__container {
   border-top: 1px solid #DADADA;
   display: flex;
@@ -56,7 +71,7 @@
 
 @media only screen and (max-width: 1279px) {
   .aboutMe__container-table {
-    max-width: 364px;
+    max-width: 362px;
   }
 }
 
@@ -101,7 +116,7 @@
     font-size: 12px;
     line-height: 18px;
     margin-top: 16px;
-  margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -160,7 +175,7 @@
   }
 }
 
-.aboutMe__container-avatar{
+.aboutMe__container-avatar {
   width: 270px;
   border-radius: 10px;
   object-fit: contain;

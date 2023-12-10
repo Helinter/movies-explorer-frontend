@@ -45,5 +45,7 @@
   .more__button {
     min-width: auto;
     max-width: 300px;
+    margin-top: 74px;
+    margin-bottom: 80px;
   }
 }

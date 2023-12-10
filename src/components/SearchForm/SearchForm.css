@@ -48,6 +48,7 @@
   .searchForm__input {
     max-height: 56px;
     margin-bottom: 31px;
+    padding-left: 10px;
   }
 }
 

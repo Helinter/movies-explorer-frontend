@@ -21,7 +21,6 @@ function Profile() {
             />
             <label className="profile__input-label" for="profileName">Имя</label>
           </div>
-          <div className="profile__divider"></div>
           <div className="profile__input-container">
             <input
               id="profileEmail"
@@ -31,7 +30,7 @@ function Profile() {
               type="text"
               name="formSignInEmail"
               required
-              value="pochta@ya.ru"
+              value="pochta@yandex.ru"
             />
             <label className="profile__input-label" for="profileEmail">E-mail</label>
           </div>

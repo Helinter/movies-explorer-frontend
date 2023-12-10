@@ -7,7 +7,7 @@
 
 @media only screen and (max-width: 767px) {
   .register {
-    max-width: 300px;
+    max-width: 260px;
     align-items: center;
   }
 }
@@ -17,16 +17,15 @@
   appearance: none;
   color: white;
   padding: 0;
-  margin-top: 30px;
+  margin-top: 38px;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   background-color: #202020;
-  width: 358px;
+  margin-bottom: 14px;
   border-bottom: 1px solid #424242;
-  padding-bottom: 9px;
   outline: none;
   width: 396px;
 }
@@ -37,7 +36,9 @@
 
 @media only screen and (max-width: 767px) {
   .signup__input {
-    max-width: 300px;
+    max-width: 260px;
+    margin-top: 36px;
+    margin-bottom: 15px;
   }
 }
 
@@ -48,15 +49,15 @@
   color: white;
   border: 0;
   border-radius: 2px;
-  margin-top: 216px;
+  margin-top: 138px;
   width: 358px;
-  height: 50px;
+  height: 45px;
   margin-bottom: 15px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 16.94px;
   text-align: center;
   align-self: center;
   cursor: pointer;
@@ -70,9 +71,10 @@ opacity: 80%;
 
 @media only screen and (max-width: 767px) {
   .signup__button {
-    max-width: 300px;
-    margin-top: 222px;
-    margin-bottom: 14px;
+    max-width: 260px;
+    margin-top: 225px;
+    margin-bottom: 13px;
+    font-size: 12px;
   }
 }
 
@@ -91,6 +93,12 @@ opacity: 80%;
   color: #4285F4;
 }
 
+@media only screen and (max-width: 767px) {
+  .signup__link {
+    font-size: 11px;
+  }
+}
+
 .signup__link:hover{
   opacity: 70%;
 }
@@ -107,9 +115,16 @@ opacity: 80%;
   color: #8B8B8B;
 }
 
+@media only screen and (max-width: 1279px) {
+  .signup__link-q {
+    margin-bottom: 232px;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .signup__link-q {
     margin-bottom: 30px;
+    font-size: 12px;
   }
 }
 
@@ -119,7 +134,7 @@ opacity: 80%;
 
 @media only screen and (max-width: 767px) {
   .register__input-container {
-    max-width: 300px;
+    max-width: 260px;
   }
 }
 
@@ -139,7 +154,7 @@ color: #8B8B8B;
 
 @media only screen and (max-width: 767px) {
   .register__input-label {
-    max-width: 300px;
+    max-width: 260px;
   }
 }
 
@@ -147,7 +162,7 @@ color: #8B8B8B;
 .register__title{
   margin: 0;
   padding: 0;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   font-family: 'Inter', Arial, sans-serif;
 font-weight: 500;
 font-size: 24px;
@@ -156,6 +171,6 @@ line-height: 29.05px;
 
 @media only screen and (max-width: 767px) {
   .register__title {
-    margin-bottom: 80px;
+    margin-bottom: 70px;
   }
 }

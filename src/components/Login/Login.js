@@ -32,7 +32,7 @@ function Login() {
             />
             <label className="register__input-label" for="registerPassword">Пароль</label>
           </div>
-          <button type="submit" className="signup__button" id="SignInSubmit">
+          <button type="submit" className="signin__button" id="SignInSubmit">
             Войти
           </button>
 
