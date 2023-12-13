@@ -1,0 +1,23 @@
+.savedMovies{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgba(32, 32, 32, 1);
+  max-width: 1280px;
+  align-items: center;
+  margin-bottom: 81px;
+}
+
+@media only screen and (max-width: 1279px) {
+  .savedMovies {
+    margin-bottom: 10px;
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+  .savedMovies {
+    max-width: 300px;
+    margin-bottom: 30px;
+  }
+}
