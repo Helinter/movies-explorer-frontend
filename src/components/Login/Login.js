@@ -1,13 +1,52 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header'
 import { Link } from 'react-router-dom';
+import { api } from '../../utils/Api'
+import { setToken } from '../TokenHelper/TokenHelper';
 
 function Login() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate(); 
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  
+    if (!email || !password) {
+      console.error('Email и пароль обязательны');
+      return;
+    }
+  
+    try {
+      const response = await api.login(email, password);
+
+      if (response.token) {
+      setToken(response.token); 
+      navigate('/movies');
+      
+      }
+    }
+     catch (error) {
+      console.error('Ошибка авторизации:', error);
+    }
+  }; 
+
   return (
   <>
     <Header />
       <section className="register">
         <h1 className="register__title">Рады видеть!</h1>
-        <form >
+        <form onSubmit={handleLogin}>
           <div className="register__input-container">
             <input
               id="registerEmail"
@@ -17,6 +56,7 @@ function Login() {
               type="text"
               name="formSignInEmail"
               required
+              onChange={handleEmailChange}
             />
             <label className="register__input-label" for="registerEmail">E-mail</label>
           </div>
@@ -29,6 +69,7 @@ function Login() {
               type="password"
               name="formSignInPassword"
               required
+              onChange={handlePasswordChange}
             />
             <label className="register__input-label" for="registerPassword">Пароль</label>
           </div>

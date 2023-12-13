@@ -1,13 +1,43 @@
+import React, { useState } from 'react';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
+import { api } from '../../utils/Api'
 
 function Register() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.createUser(name, email, password);
+      console.log('Успешная регистрация:', response);
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+    }
+  };
+
   return (
     <>
       <Header />
       <section className="register">
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form >
+        <form onSubmit={handleRegister}>
           <div className="register__input-container">
             <input
               id="registerName"
@@ -17,6 +47,7 @@ function Register() {
               type="text"
               name="formSignInPassword"
               required
+              onChange = {handleNameChange}
             />
             <label className="register__input-label" for="registerName">Имя</label>
           </div>
@@ -29,6 +60,7 @@ function Register() {
               type="text"
               name="formSignInEmail"
               required
+              onChange = {handleEmailChange}
             />
             <label className="register__input-label" for="registerEmail">E-mail</label>
           </div>
@@ -41,6 +73,7 @@ function Register() {
               type="password"
               name="formSignInPassword"
               required
+              onChange = {handlePasswordChange}
             />
             <label className="register__input-label" for="registerPassword">Пароль</label>
           </div>
