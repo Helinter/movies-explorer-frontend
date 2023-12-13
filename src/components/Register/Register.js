@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
-import { api } from '../../utils/Api'
+import { api } from '../../utils/MainApi'
 
 function Register() {
 

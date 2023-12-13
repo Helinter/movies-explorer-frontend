@@ -6,5 +6,12 @@ const apiConfig = {
   }
 };
 
+const moviesApiConfig = {
+  url: ' https://api.nomoreparties.co/beatfilm-movies',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
 
-export { apiConfig };
+
+export { apiConfig, moviesApiConfig };

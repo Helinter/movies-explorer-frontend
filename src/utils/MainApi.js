@@ -49,7 +49,6 @@ export class Api {
 
     if (res.ok) {
       const data = await res.json();
-      console.log('Получены данные:', data);
       return data;
     }
   
@@ -142,16 +141,3 @@ export class Api {
 
 
 export const api = new Api(apiConfig);
-
-
-const fetchData = async () => {
-  try {
-    const data = await api.getUserInfo();
-    console.log(data);
-
-  } catch (error) {
-    console.error('Ошибка при получении информации:', error);
-  }
-};
-
-fetchData();

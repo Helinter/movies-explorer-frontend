@@ -5,6 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import More from '../More/More'
 
 function Movies() {
+
   return (
   <>
     <Header />
