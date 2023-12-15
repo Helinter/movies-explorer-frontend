@@ -1,7 +1,14 @@
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
+import { removeToken } from '../TokenHelper/TokenHelper'; 
 
 function Profile() {
+
+  const handleLogout = () => {
+    // При клике на ссылку, удаляем токен из sessionStorage
+    removeToken();
+  };
+
   return (
   <>
     <Header />
@@ -41,7 +48,7 @@ function Profile() {
         </form >
        
           <a href="#" className="profile__link-q">Редактировать</a>
-            <Link className="profile__link" to="/signin">Выйти из аккаунта</Link>
+            <Link className="profile__link" onClick={handleLogout} to="/signin">Выйти из аккаунта</Link>
           
       
       </section >

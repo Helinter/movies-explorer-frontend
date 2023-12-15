@@ -2,7 +2,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { moviesApi } from '../../utils/MoviesApi';
 import { useState } from 'react';
 
-function SearchForm() {
+function SearchForm({ isFinded, setIsFinded, movies, setMovies, loading, setLoading }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = async (event) => {
@@ -11,11 +11,14 @@ function SearchForm() {
     // Проверка, что пользователь ввел хоть что-то в инпут
     if (searchQuery.trim() !== '') {
       try {
-        const movies = await moviesApi.getMovies();
-        console.log(movies);
+        setLoading(true);
+        const moviesData = await moviesApi.getMovies();
+        setMovies(moviesData);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
+      setIsFinded(searchQuery);
     }
   };
 

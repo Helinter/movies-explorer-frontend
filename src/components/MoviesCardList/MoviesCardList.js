@@ -1,13 +1,17 @@
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState, useEffect } from 'react';
+import Preloader from '../Preloader/Preloader';
+import More from '../More/More'
 
-function MoviesCardList() {
+function MoviesCardList({movies, loading, isFinded}) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   const cardListClass = isSavedMoviesPage ? 'savedMoviesCardList' : 'moviesCardList';
   const [numberOfCardsToRender, setNumberOfCardsToRender] = useState(isSavedMoviesPage ? 3 : 12);
+  
+  
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,28 +23,36 @@ function MoviesCardList() {
       } else {
         newNumberOfCards = isSavedMoviesPage ? 3 : 12;
       }
-  
+
       setNumberOfCardsToRender(newNumberOfCards);
     };
-  
+
     handleResize();
-  
+
     window.addEventListener('resize', handleResize);
-  
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [isSavedMoviesPage]);
-  
 
   return (
-    <ul className={cardListClass}>
-      {[...Array(numberOfCardsToRender)].map((_, index) => (
-        <li key={index}>
-          <MoviesCard />
-        </li>
-      ))}
-    </ul>
+    <>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <>
+        <ul className={cardListClass}>
+          {movies.slice(0, numberOfCardsToRender).map((movie, index) => (
+            <li key={index}>
+              <MoviesCard movie={movie} />
+            </li>
+          ))}
+        </ul>
+        {isFinded !=='' && <More showButton={true}/>}
+        </>
+      )}
+    </>
   );
 }
 
