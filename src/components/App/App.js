@@ -9,6 +9,7 @@ import NotFound from '../NotFound/NotFound';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { useState } from 'react';
+import { CurrentUserProvider } from '../../context/CurrentUserContext';
 
 
 function App() {
@@ -19,6 +20,7 @@ const [loading, setLoading] = useState(false);
 
 
   return (
+    <CurrentUserProvider>
     <Router>
 
       <main className="page">
@@ -52,6 +54,7 @@ const [loading, setLoading] = useState(false);
       </main>
 
     </Router>
+    </CurrentUserProvider>
   );
 }
 

@@ -38,7 +38,7 @@ function Navigation() {
       {isLoggedIn ? (
         <section className={`navigation ${isContainerActive ? 'navigation_active' : ''}`}>
           {isContainerActive && (
-            <NavLink className="navigation__link" to="/" activeClassName="header__link_active">
+            <NavLink className="navigation__link" to="/" activeclassname="header__link_active">
               Главная
             </NavLink>
           )}

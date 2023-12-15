@@ -65,7 +65,7 @@ export class Api {
         headers: this._updateHeaders(),
         body: JSON.stringify({
           name: name,
-          email: email
+          email: email,
         })
       });
   

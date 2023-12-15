@@ -4,9 +4,10 @@ import Header from '../Header/Header'
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/MainApi'
 import { setToken } from '../TokenHelper/TokenHelper';
+import { useCurrentUser } from '../../context/CurrentUserContext';
 
 function Login() {
-
+  const { currentUser, updateCurrentUser } = useCurrentUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); 
@@ -29,11 +30,14 @@ function Login() {
   
     try {
       const response = await api.login(email, password);
-
       if (response.token) {
       setToken(response.token); 
+
+      const userData = await api.getUserInfo();
+      if (userData){
+      updateCurrentUser(userData);
+      }
       navigate('/movies');
-      
       }
     }
      catch (error) {

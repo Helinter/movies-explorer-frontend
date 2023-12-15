@@ -33,8 +33,9 @@ function MoviesCard({ movie }) {
             onClick={handleImageClick}
             style={{ cursor: 'pointer' }}
           />
+          </a>
           <button type="button" className="moviesCard__button"></button>
-        </a>
+        
       </section>
     </>
   );
