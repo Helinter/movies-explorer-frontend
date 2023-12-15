@@ -2,29 +2,30 @@ import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
-import More from '../More/More'
+import More from '../More/More';
 
-function MoviesCardList({movies, loading, isFinded}) {
+function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   const cardListClass = isSavedMoviesPage ? 'savedMoviesCardList' : 'moviesCardList';
-  const [numberOfCardsToRender, setNumberOfCardsToRender] = useState(isSavedMoviesPage ? 3 : 12);
-  
-  
+  const cardsPerPage = isSavedMoviesPage ? 3 : 12;
+
+  const [totalCards, setTotalCards] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(cardsPerPage);
 
   useEffect(() => {
     const handleResize = () => {
-      let newNumberOfCards;
+      let newVisibleCards;
       if (window.innerWidth <= 767) {
-        newNumberOfCards = isSavedMoviesPage ? 2 : 5;
+        newVisibleCards = isSavedMoviesPage ? 2 : 5;
       } else if (window.innerWidth <= 1279) {
-        newNumberOfCards = isSavedMoviesPage ? 3 : 8;
+        newVisibleCards = isSavedMoviesPage ? 3 : 8;
       } else {
-        newNumberOfCards = isSavedMoviesPage ? 3 : 12;
+        newVisibleCards = isSavedMoviesPage ? 3 : 12;
       }
 
-      setNumberOfCardsToRender(newNumberOfCards);
+      setVisibleCards(newVisibleCards);
     };
 
     handleResize();
@@ -36,20 +37,39 @@ function MoviesCardList({movies, loading, isFinded}) {
     };
   }, [isSavedMoviesPage]);
 
+  useEffect(() => {
+    setTotalCards(movies.length);
+  }, [movies]);
+
+  useEffect(() => {
+    // Сбрасываем видимые карточки при изменении isFinded
+    setVisibleCards(cardsPerPage);
+  }, [isFinded]);
+
+  const handleShowMore = () => {
+    // При нажатии на кнопку "Еще" увеличиваем количество видимых карточек
+    setVisibleCards(prevVisibleCards => prevVisibleCards + cardsPerPage);
+  };
+
   return (
     <>
       {loading ? (
         <Preloader />
       ) : (
         <>
-        <ul className={cardListClass}>
-          {movies.slice(0, numberOfCardsToRender).map((movie, index) => (
-            <li key={index}>
-              <MoviesCard movie={movie} />
-            </li>
-          ))}
-        </ul>
-        {isFinded !=='' && <More showButton={true}/>}
+          <ul className={cardListClass}>
+            {movies
+              .filter(movie => !shortFilm || (shortFilm && movie.duration <= 40))
+              .slice(0, visibleCards)
+              .map((movie, index) => (
+                <li key={index}>
+                  <MoviesCard movie={movie} />
+                </li>
+              ))}
+          </ul>
+          {!isSavedMoviesPage && isFinded !== '' && visibleCards < totalCards && (
+            <More showButton={true} onClick={handleShowMore} />
+          )}
         </>
       )}
     </>

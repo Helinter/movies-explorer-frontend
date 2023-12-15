@@ -1,9 +1,27 @@
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { moviesApi } from '../../utils/MoviesApi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function SearchForm({ isFinded, setIsFinded, movies, setMovies, loading, setLoading }) {
+function SearchForm({ setIsFinded, setMovies, setLoading }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [shortFilm, setShortFilm] = useState(false);
+  const [moviesData, setMoviesData] = useState([]);
+
+  useEffect(() => {
+    // Выполнять фильтрацию при изменении данных фильмов или состояния чекбокса
+    filterMovies();
+  }, [moviesData, shortFilm]);
+
+  const filterMovies = () => {
+    const filteredMovies = moviesData.filter(movie =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const finalFilteredMovies = shortFilm ? filteredMovies.filter(movie => movie.duration <= 40) : filteredMovies;
+
+    setMovies(finalFilteredMovies);
+  };
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -12,18 +30,22 @@ function SearchForm({ isFinded, setIsFinded, movies, setMovies, loading, setLoad
     if (searchQuery.trim() !== '') {
       try {
         setLoading(true);
-        const moviesData = await moviesApi.getMovies();
-        setMovies(moviesData);
+        const fetchedMoviesData = await moviesApi.getMovies();
+        setMoviesData(fetchedMoviesData);
+        setIsFinded(searchQuery);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
-      setIsFinded(searchQuery);
     }
   };
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleCheckboxChange = () => {
+    setShortFilm(!shortFilm);
   };
 
   return (
@@ -45,7 +67,7 @@ function SearchForm({ isFinded, setIsFinded, movies, setMovies, loading, setLoad
               Поиск
             </button>
           </div>
-          <FilterCheckbox />
+          <FilterCheckbox isChecked={shortFilm} onCheckboxChange={handleCheckboxChange} />
         </form>
       </section>
     </>

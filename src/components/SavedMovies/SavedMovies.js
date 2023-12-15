@@ -2,7 +2,6 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import More from '../More/More'
 
 function SavedMovies({isFinded, setIsFinded, movies, setMovies, loading, setLoading}) {
   return (
@@ -22,7 +21,6 @@ function SavedMovies({isFinded, setIsFinded, movies, setMovies, loading, setLoad
       loading = {loading}
       isFinded = {isFinded}
       />
-      <More showButton={false} />
     </section>
     <Footer />
   </>
