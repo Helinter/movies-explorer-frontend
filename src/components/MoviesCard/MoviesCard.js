@@ -7,7 +7,6 @@ function MoviesCard({ movie }) {
 
   const { nameRU, image, trailerLink, duration } = movie;
 
-  // Преобразуем длительность фильма из минут в часы и минуты
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
   const durationText = `${hours}ч ${minutes}м`;

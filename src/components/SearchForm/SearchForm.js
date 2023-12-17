@@ -1,21 +1,18 @@
+import React, { useState, useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { moviesApi } from '../../utils/MoviesApi';
-import { useState, useEffect } from 'react';
-import { api } from '../../utils/MainApi';
-import { useLocation } from 'react-router-dom';
 
-function SearchForm({ setIsFinded, setMovies, setLoading }) {
+function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
 
-  const location = useLocation();
-  const isSavedMoviesPage = location.pathname === '/saved-movies';
+  useEffect(() => {
+    setMoviesData(initialMoviesData);
+  }, [initialMoviesData]);
 
   useEffect(() => {
-    // Выполнять фильтрацию при изменении данных фильмов или состояния чекбокса
     filterMovies();
-  }, [moviesData, shortFilm]);
+  }, [shortFilm, isFinded]);
 
   const filterMovies = () => {
     const filteredMovies = moviesData.filter(movie =>
@@ -28,37 +25,10 @@ function SearchForm({ setIsFinded, setMovies, setLoading }) {
     setMovies(finalFilteredMovies);
   };
 
-  const handleSearch = async (event) => {
+  const handleSearch = (event) => {
     event.preventDefault();
-
-    // Проверка, что пользователь ввел хоть что-то в инпут
     if (searchQuery.trim() !== '') {
-      try {
-        setLoading(true);
-        const fetchedMoviesData = await moviesApi.getMovies();
-        setMoviesData(fetchedMoviesData);
-        setIsFinded(searchQuery);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching  saved movies:', error);
-      }
-    }
-  };
-
-  const handleSavedSearch = async (event) => {
-    event.preventDefault();
-
-    // Проверка, что пользователь ввел хоть что-то в инпут
-    if (searchQuery.trim() !== '') {
-      try {
-        setLoading(true);
-        const fetchedMoviesData = await api.getSavedMovies();
-        setMoviesData(fetchedMoviesData);
-        setIsFinded(searchQuery);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-      }
+      setIsFinded(searchQuery);
     }
   };
 
@@ -73,7 +43,7 @@ function SearchForm({ setIsFinded, setMovies, setLoading }) {
   return (
     <>
       <section className="searchForm">
-        <form onSubmit={isSavedMoviesPage ? handleSavedSearch : handleSearch}>
+        <form onSubmit={handleSearch}>
           <div className="searchForm__input__container">
             <input
               className="searchForm__input"

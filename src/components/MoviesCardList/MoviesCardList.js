@@ -9,7 +9,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   const cardListClass = isSavedMoviesPage ? 'savedMoviesCardList' : 'moviesCardList';
-  const cardsPerPage = isSavedMoviesPage ? 3 : 12;
+  const cardsPerPage = 12;
 
   const [totalCards, setTotalCards] = useState(0);
   const [visibleCards, setVisibleCards] = useState(cardsPerPage);
@@ -18,11 +18,11 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
     const handleResize = () => {
       let newVisibleCards;
       if (window.innerWidth <= 767) {
-        newVisibleCards = isSavedMoviesPage ? 2 : 5;
+        newVisibleCards = 5;
       } else if (window.innerWidth <= 1279) {
-        newVisibleCards = isSavedMoviesPage ? 3 : 8;
+        newVisibleCards = 8;
       } else {
-        newVisibleCards = isSavedMoviesPage ? 3 : 12;
+        newVisibleCards = 12;
       }
 
       setVisibleCards(newVisibleCards);
