@@ -49,7 +49,7 @@ function Register() {
               required
               onChange = {handleNameChange}
             />
-            <label className="register__input-label" for="registerName">Имя</label>
+            <label className="register__input-label" htmlFor="registerName">Имя</label>
           </div>
           <div className="register__input-container">
             <input
@@ -62,7 +62,7 @@ function Register() {
               required
               onChange = {handleEmailChange}
             />
-            <label className="register__input-label" for="registerEmail">E-mail</label>
+            <label className="register__input-label" htmlFor="registerEmail">E-mail</label>
           </div>
           <div className="register__input-container">
             <input
@@ -75,7 +75,7 @@ function Register() {
               required
               onChange = {handlePasswordChange}
             />
-            <label className="register__input-label" for="registerPassword">Пароль</label>
+            <label className="register__input-label" htmlFor="registerPassword">Пароль</label>
           </div>
           <button type="submit" className="signup__button" id="SignInSubmit">
             Зарегистрироваться

@@ -1,11 +1,16 @@
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { moviesApi } from '../../utils/MoviesApi';
 import { useState, useEffect } from 'react';
+import { api } from '../../utils/MainApi';
+import { useLocation } from 'react-router-dom';
 
 function SearchForm({ setIsFinded, setMovies, setLoading }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
+
+  const location = useLocation();
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   useEffect(() => {
     // Выполнять фильтрацию при изменении данных фильмов или состояния чекбокса
@@ -35,6 +40,23 @@ function SearchForm({ setIsFinded, setMovies, setLoading }) {
         setIsFinded(searchQuery);
         setLoading(false);
       } catch (error) {
+        console.error('Error fetching  saved movies:', error);
+      }
+    }
+  };
+
+  const handleSavedSearch = async (event) => {
+    event.preventDefault();
+
+    // Проверка, что пользователь ввел хоть что-то в инпут
+    if (searchQuery.trim() !== '') {
+      try {
+        setLoading(true);
+        const fetchedMoviesData = await api.getSavedMovies();
+        setMoviesData(fetchedMoviesData);
+        setIsFinded(searchQuery);
+        setLoading(false);
+      } catch (error) {
         console.error('Error fetching movies:', error);
       }
     }
@@ -51,7 +73,7 @@ function SearchForm({ setIsFinded, setMovies, setLoading }) {
   return (
     <>
       <section className="searchForm">
-        <form onSubmit={handleSearch}>
+        <form onSubmit={isSavedMoviesPage ? handleSavedSearch : handleSearch}>
           <div className="searchForm__input__container">
             <input
               className="searchForm__input"

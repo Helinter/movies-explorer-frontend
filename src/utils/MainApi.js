@@ -36,7 +36,6 @@ export class Api {
   }  
 
   async getUserInfo() {
-    console.log('tokesStored', sessionStorage.token)
     const token = sessionStorage.getItem('token');
   
     if (!token) {
@@ -88,16 +87,29 @@ export class Api {
   }
 
   // Метод для добавления новой карточки на сервер
-  async createMovie() {
+  async createMovie(movie) {
+    const baseUrl = 'https://api.nomoreparties.co';
     const res = await fetch(`${this.url}/movies`, {
       method: 'POST',
       headers: this._updateHeaders(),
       body: JSON.stringify({
-        
-      })
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: baseUrl + movie.image.url,
+        trailer: movie.trailerLink,
+        thumbnail: baseUrl + movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        owner: movie.owner || null,
+      }),
     });
     return this._checkResponse(res);
   }
+  
 
   // Метод для удаления карточки с сервера
   async deleteMovie(movieId) {

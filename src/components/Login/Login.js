@@ -62,7 +62,7 @@ function Login() {
               required
               onChange={handleEmailChange}
             />
-            <label className="register__input-label" for="registerEmail">E-mail</label>
+            <label className="register__input-label" htmlFor="registerEmail">E-mail</label>
           </div>
           <div className="register__input-container">
             <input
@@ -75,7 +75,7 @@ function Login() {
               required
               onChange={handlePasswordChange}
             />
-            <label className="register__input-label" for="registerPassword">Пароль</label>
+            <label className="register__input-label" htmlFor="registerPassword">Пароль</label>
           </div>
           <button type="submit" className="signin__button" id="SignInSubmit">
             Войти
