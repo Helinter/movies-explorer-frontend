@@ -44,6 +44,7 @@ function SavedMovies() {
           movies={movies}
           loading={loading}
           isFinded={isFinded}
+          setMovies={setMovies}
         />
       </section>
       <Footer />

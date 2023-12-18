@@ -112,9 +112,9 @@ export class Api {
   
 
   // Метод для удаления карточки с сервера
-  async deleteMovie(movieId) {
+  async deleteMovie(_id) {
    
-    const res = await fetch(`${this.url}/movies/${movieId}`, {
+    const res = await fetch(`${this.url}/movies/${_id}`, {
       method: 'DELETE',
       headers: this._updateHeaders(),
     });

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
 import More from '../More/More';
 
-function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
+function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
@@ -18,11 +18,11 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
     const handleResize = () => {
       let newVisibleCards;
       if (window.innerWidth <= 767) {
-        newVisibleCards = 5;
+        newVisibleCards = isSavedMoviesPage ? movies.length : 5;
       } else if (window.innerWidth <= 1279) {
-        newVisibleCards = 8;
+        newVisibleCards = isSavedMoviesPage ? movies.length : 8;
       } else {
-        newVisibleCards = 12;
+        newVisibleCards = isSavedMoviesPage ? movies.length : 12;
       }
 
       setVisibleCards(newVisibleCards);
@@ -51,6 +51,13 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
     setVisibleCards(prevVisibleCards => prevVisibleCards + cardsPerPage);
   };
 
+  const handleDeleteMovie = (movieId) => {
+    // Фильтруем список фильмов, исключая удаленный
+    const updatedMovies = movies.filter(movie => movie._id !== movieId);
+    setTotalCards(updatedMovies.length);
+    setMovies(updatedMovies); // Обновляем состояние movies
+  };
+
   return (
     <>
       {loading ? (
@@ -60,10 +67,10 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm }) {
           <ul className={cardListClass}>
             {movies
               .filter(movie => !shortFilm || (shortFilm && movie.duration <= 40))
-              .slice(0, visibleCards)
+              .slice(0, isSavedMoviesPage ? movies.length : visibleCards)
               .map((movie, index) => (
                 <li key={index}>
-                  <MoviesCard movie={movie} />
+                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} />
                 </li>
               ))}
           </ul>
