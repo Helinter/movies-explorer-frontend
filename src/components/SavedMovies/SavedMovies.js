@@ -17,6 +17,7 @@ function SavedMovies() {
         setLoading(true);
         const fetchedMoviesData = await api.getSavedMovies();
         setMoviesData(fetchedMoviesData);
+        setMovies(fetchedMoviesData); // Устанавливаем все карточки при получении данных
         setLoading(false);
       } catch (error) {
         console.error('Error fetching saved movies:', error);
@@ -27,7 +28,7 @@ function SavedMovies() {
     if (!moviesData.length) {
       fetchData();
     }
-  }, [setLoading, moviesData, setMoviesData]);
+  }, []);
 
   return (
     <>

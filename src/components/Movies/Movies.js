@@ -10,6 +10,7 @@ function Movies() {
   const [moviesData, setMoviesData] = useState([]);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +45,8 @@ function Movies() {
           movies={movies}
           loading={loading}
           isFinded={isFinded}
+          savedMovies={savedMovies}
+          setSavedMovies={setSavedMovies}
         />
       </section>
       <Footer />

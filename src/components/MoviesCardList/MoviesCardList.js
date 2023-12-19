@@ -3,6 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
 import More from '../More/More';
+import { api } from '../../utils/MainApi';
 
 function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
   const location = useLocation();
@@ -36,6 +37,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
       window.removeEventListener('resize', handleResize);
     };
   }, [isSavedMoviesPage]);
+  
 
   useEffect(() => {
     setTotalCards(movies.length);
@@ -70,7 +72,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
               .slice(0, isSavedMoviesPage ? movies.length : visibleCards)
               .map((movie, index) => (
                 <li key={index}>
-                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} />
+                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie}/>
                 </li>
               ))}
           </ul>

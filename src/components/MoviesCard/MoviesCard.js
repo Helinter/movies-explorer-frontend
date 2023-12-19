@@ -14,7 +14,7 @@ function MoviesCard({ movie, onDeleteMovie }) {
 
   const baseUrl = 'https://api.nomoreparties.co';
 
-  const [isLiked, setIsLiked] = useState(isSavedMoviesPage? true : false); // Состояние для отслеживания сохранения фильма
+  const [isLiked, setIsLiked] = useState(isSavedMoviesPage ? true : false); // Состояние для отслеживания сохранения фильма
 
 
   const handleImageClick = () => {
@@ -34,6 +34,18 @@ function MoviesCard({ movie, onDeleteMovie }) {
           onDeleteMovie(movie._id);
         } else {
           setIsLiked(!isLiked);
+          try {
+            const fetchedSavedMoviesData = await api.getSavedMovies();
+            const indexToRemove = fetchedSavedMoviesData.findIndex(savedMovie => savedMovie.movieId === movie.id);
+            if (indexToRemove !== -1) {
+              const response = await api.deleteMovie(fetchedSavedMoviesData[indexToRemove]._id);
+              console.log('Movie removed:', response);
+            } else {
+              console.log('не найдено');
+            }
+          } catch (error) {
+            console.error('Error fetching saved movies:', error);
+          }
         }
       }
     } catch (error) {
