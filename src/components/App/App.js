@@ -8,16 +8,23 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CurrentUserProvider } from '../../context/CurrentUserContext';
 
 
 function App() {
   
-const [isFinded, setIsFinded] = useState('');
-const [movies, setMovies] = useState([]);
-const [loading, setLoading] = useState(false);
+  const [isLogedin, setIsLogedin] = useState(() => {
+    // Пытаемся получить значение из localStorage
+    const storedIsLogedin = localStorage.getItem('isLogedin');
+    // Преобразуем значение в булев тип и возвращаем
+    return storedIsLogedin ? JSON.parse(storedIsLogedin) : false;
+  });
 
+  useEffect(() => {
+    // При изменении значения сохраняем его в localStorage
+    localStorage.setItem('isLogedin', JSON.stringify(isLogedin));
+  }, [isLogedin]);
 
   return (
     <CurrentUserProvider>
@@ -28,25 +35,11 @@ const [loading, setLoading] = useState(false);
         <Routes>
 
           <Route path="/signup" element={<Register />} />
-          <Route path="/signin" element={<Login />} />
-          <Route path="/" element={<Main />}/>
-          <Route path="/movies" element={<ProtectedRouteElement element={Movies} 
-          isFinded = {isFinded}
-          setIsFinded = {setIsFinded}
-          movies = {movies}
-          setMovies = {setMovies}
-          loading = {loading}
-          setLoading = {setLoading}
-          />}/>
-          <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} 
-          isFinded = {isFinded}
-          setIsFinded = {setIsFinded}
-          movies = {movies}
-          setMovies = {setMovies}
-          loading = {loading}
-          setLoading = {setLoading}
-          />}/>
-          <Route path="/profile" element={<ProtectedRouteElement element={Profile}/>}/>
+          <Route path="/signin" element={<Login setIsLogedin={setIsLogedin }/>} />
+          <Route path="/" element={<Main isLogedin={isLogedin}/>}/>
+          <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin}/>}/>
+          <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin}/>}/>
+          <Route path="/profile" element={<ProtectedRouteElement element={Profile} isLogedin={isLogedin} setIsLogedin={setIsLogedin}/>}/>
           <Route path="*" element={<NotFound />} />
 
         </Routes>

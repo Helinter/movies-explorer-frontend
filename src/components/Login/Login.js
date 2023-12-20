@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Header/Header'
+import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
-import { api } from '../../utils/MainApi'
+import { api } from '../../utils/MainApi';
 import { setToken } from '../TokenHelper/TokenHelper';
 import { useCurrentUser } from '../../context/CurrentUserContext';
 
-function Login() {
-  const { currentUser, updateCurrentUser } = useCurrentUser();
+function Login({ setIsLogedin }) {
+  const { updateCurrentUser } = useCurrentUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -31,23 +31,28 @@ function Login() {
     try {
       const response = await api.login(email, password);
       if (response.token) {
-      setToken(response.token); 
-
-      const userData = await api.getUserInfo();
-      if (userData){
-      updateCurrentUser(userData);
+        setToken(response.token);
+        setIsLogedin(true);
+        const storedCurrentUser = localStorage.getItem('currentUser');
+        const userData = await api.getUserInfo();
+        if (userData) {
+          updateCurrentUser(userData);
+  
+          if (!storedCurrentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+          }
+  
+        }
+        navigate('/movies');
       }
-      navigate('/movies');
-      }
-    }
-     catch (error) {
+    } catch (error) {
       console.error('Ошибка авторизации:', error);
     }
-  }; 
+  };
 
   return (
-  <>
-    <Header />
+    <>
+      <Header />
       <section className="register">
         <h1 className="register__title">Рады видеть!</h1>
         <form onSubmit={handleLogin}>
@@ -62,7 +67,9 @@ function Login() {
               required
               onChange={handleEmailChange}
             />
-            <label className="register__input-label" htmlFor="registerEmail">E-mail</label>
+            <label className="register__input-label" htmlFor="registerEmail">
+              E-mail
+            </label>
           </div>
           <div className="register__input-container">
             <input
@@ -75,20 +82,20 @@ function Login() {
               required
               onChange={handlePasswordChange}
             />
-            <label className="register__input-label" htmlFor="registerPassword">Пароль</label>
+            <label className="register__input-label" htmlFor="registerPassword">
+              Пароль
+            </label>
           </div>
           <button type="submit" className="signin__button" id="SignInSubmit">
             Войти
           </button>
+        </form>
 
-        </form >
-       
-          <p className="signup__link-q">Ещё не зарегистрированы?
+        <p className="signup__link-q">Ещё не зарегистрированы?
             <Link className="signup__link" to="/signup"> Регистрация</Link>
           </p>
-      
-      </section >
-  </>
+      </section>
+    </>
   );
 }
 

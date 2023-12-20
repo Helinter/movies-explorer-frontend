@@ -5,7 +5,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { moviesApi } from '../../utils/MoviesApi';
 
-function Movies() {
+function Movies({isLogedin}) {
   const [isFinded, setIsFinded] = useState('');
   const [moviesData, setMoviesData] = useState([]);
   const [movies, setMovies] = useState([]);
@@ -32,7 +32,7 @@ function Movies() {
 
   return (
     <>
-      <Header />
+      <Header isLogedin={isLogedin}/>
       <section className="movies">
         <SearchForm
           setIsFinded={setIsFinded}
