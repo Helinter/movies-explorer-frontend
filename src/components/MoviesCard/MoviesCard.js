@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 import { useState, useEffect } from 'react';
 
-function MoviesCard({ movie, onDeleteMovie }) {
+function MoviesCard({ movie, onDeleteMovie, savedMoviesData }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
@@ -14,9 +14,20 @@ function MoviesCard({ movie, onDeleteMovie }) {
 
   const baseUrl = 'https://api.nomoreparties.co';
 
-  const [isLiked, setIsLiked] = useState(isSavedMoviesPage ? true : false);
-
-
+  const [isLiked, setIsLiked] = useState(() => {
+    if (isSavedMoviesPage) {
+      return true;
+    } else {
+      return savedMoviesData.some(savedMovie => savedMovie.movieId === movie.id);
+    }
+  });
+  
+  useEffect(() => {
+    if (!isSavedMoviesPage) {
+      setIsLiked(savedMoviesData.some(savedMovie => savedMovie.movieId === movie.id));
+    }
+  }, [savedMoviesData, movie, isSavedMoviesPage]);
+  
   const handleImageClick = () => {
     window.open(trailerLink, '_blank');
   };
@@ -32,13 +43,11 @@ function MoviesCard({ movie, onDeleteMovie }) {
           const response = await api.deleteMovie(movie._id);
           console.log('Movie removed:', response);
           onDeleteMovie(movie._id);
-          setIsLiked(false);
         } else {
-          setIsLiked(!isLiked);
           try {
             const fetchedSavedMoviesData = await api.getSavedMovies();
             const movieToDelete = fetchedSavedMoviesData.find(savedMovie => savedMovie.movieId === movie.id);
-            
+            setIsLiked(false);
             if (movieToDelete) {
               const response = await api.deleteMovie(movieToDelete._id);
               console.log('Movie removed:', response);
@@ -54,8 +63,6 @@ function MoviesCard({ movie, onDeleteMovie }) {
       console.error('Error handling like:', error);
     }
   };
-  
-
 
   return (
     <>

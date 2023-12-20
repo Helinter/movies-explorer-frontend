@@ -60,6 +60,21 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
     setMovies(updatedMovies); // Обновляем состояние movies
   };
 
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+
+  useEffect(() => {
+    const fetchSavedMovies = async () => {
+      try {
+        const fetchedSavedMoviesData = await api.getSavedMovies();
+        setSavedMoviesData(fetchedSavedMoviesData);
+      } catch (error) {
+        console.error('Ошибка при получении сохраненных фильмов:', error);
+      }
+    };
+
+    fetchSavedMovies();
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -72,7 +87,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
               .slice(0, isSavedMoviesPage ? movies.length : visibleCards)
               .map((movie, index) => (
                 <li key={index}>
-                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie}/>
+                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} savedMoviesData={savedMoviesData}/>
                 </li>
               ))}
           </ul>
