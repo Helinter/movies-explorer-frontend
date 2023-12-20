@@ -20,13 +20,12 @@ export const CurrentUserProvider = ({ children }) => {
     }
   }, [currentUser, isRestoring]);
 
-  const updateCurrentUser = (userData) => {
-    setCurrentUser((prevUser) => {
-      if (!prevUser || prevUser._id !== userData._id) {
-        return userData;
-      }
-      return prevUser;
-    });
+  const updateCurrentUser = (newUser, callback) => {
+    setCurrentUser(newUser);
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    if (callback) {
+      callback(newUser);
+    }
   };
 
   return (

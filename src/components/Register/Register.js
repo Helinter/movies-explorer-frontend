@@ -1,34 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
-import { api } from '../../utils/MainApi'
+import { api } from '../../utils/MainApi';
+import { useFormWithValidation } from '../FormValidator/FormValidator';
 
 function Register() {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const { values, handleChange, isValid, resetForm, validateEmail, validateName, validatePassword } = useFormWithValidation();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await api.createUser(name, email, password);
-      console.log('Успешная регистрация:', response);
-    } catch (error) {
-      console.error('Ошибка регистрации:', error);
+    if (isValid) {
+      try {
+        const response = await api.createUser(values.name, values.email, values.password);
+        console.log('Успешная регистрация:', response);
+        // Сбросим форму после успешной регистрации
+        resetForm();
+      } catch (error) {
+        console.error('Ошибка регистрации:', error);
+      }
     }
   };
 
@@ -45,12 +35,17 @@ function Register() {
               minLength="2"
               maxLength="30"
               type="text"
-              name="formSignInPassword"
+              name="name"
               required
-              onChange = {handleNameChange}
+              onChange={handleChange}
+              value={values.name || ''}
             />
-            <label className="register__input-label" htmlFor="registerName">Имя</label>
+            <label className="register__input-label" htmlFor="registerName">
+              Имя
+            </label>
           </div>
+          <span>{validateName(values.name)}</span>
+
           <div className="register__input-container">
             <input
               id="registerEmail"
@@ -58,12 +53,17 @@ function Register() {
               minLength="2"
               maxLength="30"
               type="text"
-              name="formSignInEmail"
+              name="email"
               required
-              onChange = {handleEmailChange}
+              onChange={handleChange}
+              value={values.email || ''}
             />
-            <label className="register__input-label" htmlFor="registerEmail">E-mail</label>
+            <label className="register__input-label" htmlFor="registerEmail">
+              E-mail
+            </label>
           </div>
+          <span>{validateEmail(values.email)}</span>
+
           <div className="register__input-container">
             <input
               id="registerPassword"
@@ -71,23 +71,29 @@ function Register() {
               minLength="2"
               maxLength="30"
               type="password"
-              name="formSignInPassword"
+              name="password"
               required
-              onChange = {handlePasswordChange}
+              onChange={handleChange}
+              value={values.password || ''}
             />
-            <label className="register__input-label" htmlFor="registerPassword">Пароль</label>
+            <label className="register__input-label" htmlFor="registerPassword">
+              Пароль
+            </label>
           </div>
-          <button type="submit" className="signup__button" id="SignInSubmit">
+          <span>{validatePassword(values.password)}</span>
+
+          <button type="submit" className="signup__button" id="SignInSubmit" disabled={!isValid}>
             Зарегистрироваться
           </button>
+        </form>
 
-        </form >
-       
-          <p className="signup__link-q">Уже зарегистрированы?
-            <Link className="signup__link" to="/signin"> Войти</Link>
-          </p>
-      
-      </section >
+        <p className="signup__link-q">
+          Уже зарегистрированы?
+          <Link className="signup__link" to="/signin">
+            Войти
+          </Link>
+        </p>
+      </section>
     </>
   );
 }

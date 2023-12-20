@@ -3,32 +3,36 @@ import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 import { useCurrentUser } from '../../context/CurrentUserContext';
+import { useFormWithValidation } from '../FormValidator/FormValidator';
 
 function Profile({ isLogedin, setIsLogedin }) {
   const { currentUser, updateCurrentUser } = useCurrentUser();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const { values, handleChange, isValid, resetForm, validateEmail, validateName } = useFormWithValidation();
+
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
-      setName(currentUser.name || '');
-      setEmail(currentUser.email || '');
+      resetForm({
+        name: currentUser.name || '',
+        email: currentUser.email || '',
+      });
     }
-  }, [currentUser]);
+  }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    if (!currentUser && !values.name && !values.email) {
+      const storedCurrentUser = localStorage.getItem('currentUser');
+      if (storedCurrentUser) {
+        const parsedUser = JSON.parse(storedCurrentUser);
+        updateCurrentUser(parsedUser, () => {});
+      }
+    }
+  }, [currentUser, values.name, values.email, updateCurrentUser]);
 
   const handleLogout = () => {
     localStorage.clear();
-    // Добавим обновление isLogedin при выходе
     setIsLogedin(false);
-  };
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
   };
 
   const handleEditClick = () => {
@@ -38,13 +42,22 @@ function Profile({ isLogedin, setIsLogedin }) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      await api.updateUserInfo(name, email);
-      setIsEditing(false);
-      // Обновляем текущего пользователя в контексте
-      updateCurrentUser({ ...currentUser, name, email });
-    } catch (error) {
-      console.error('Error updating user info:', error);
+    if (isValid) {
+      try {
+        const { name, email } = values;
+        const updatedUserData = await api.updateUserInfo(name, email);
+
+        if (name !== currentUser.name || email !== currentUser.email) {
+          setIsEditing(false);
+          await updateCurrentUser({
+            ...currentUser,
+            name: updatedUserData.name,
+            email: updatedUserData.email,
+          });
+        }
+      } catch (error) {
+        console.error('Error updating user info:', error);
+      }
     }
   };
 
@@ -53,7 +66,7 @@ function Profile({ isLogedin, setIsLogedin }) {
       <Header isLogedin={isLogedin} />
       <section className="profile">
         <h1 className="profile__title">Привет, {currentUser?.name || 'Гость'}!</h1>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="profile__input-container">
             <input
               id="profileName"
@@ -61,15 +74,16 @@ function Profile({ isLogedin, setIsLogedin }) {
               minLength="2"
               maxLength="30"
               type="text"
-              name="formSignInPassword"
+              name="name"
               required
-              value={name}
-              onChange={handleNameChange}
+              value={values.name || ''}
+              onChange={handleChange}
               readOnly={!isEditing}
             />
             <label className="profile__input-label" htmlFor="profileName">
               Имя
             </label>
+            <span className="profile__error">{validateName(values.name)}</span>
           </div>
           <div className="profile__input-container">
             <input
@@ -78,18 +92,19 @@ function Profile({ isLogedin, setIsLogedin }) {
               minLength="2"
               maxLength="30"
               type="text"
-              name="formSignInEmail"
+              name="email"
               required
-              value={email}
-              onChange={handleEmailChange}
+              value={values.email || ''}
+              onChange={handleChange}
               readOnly={!isEditing}
             />
             <label className="profile__input-label" htmlFor="profileEmail">
               E-mail
             </label>
+            <span className="profile__error">{validateEmail(values.email)}</span>
           </div>
           {isEditing && (
-            <button type="submit" onClick={handleFormSubmit} className="profile__button" id="SignInSubmit">
+            <button type="submit" className="profile__button" id="SignInSubmit">
               Сохранить
             </button>
           )}
