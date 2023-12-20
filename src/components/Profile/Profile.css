@@ -120,6 +120,15 @@
   width: 410px;
 }
 
+@media only screen and (max-width: 767px) {
+  .profile__button {
+    max-width: 260px;
+    margin-top: 296px;
+    margin-bottom: 13px;
+    font-size: 12px;
+  }
+}
+
 .profile__link {
   text-decoration: none;
   color: inherit;
