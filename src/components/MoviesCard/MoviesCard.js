@@ -6,7 +6,7 @@ function MoviesCard({ movie, onDeleteMovie, savedMoviesData }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
-  const { nameRU, image, trailerLink, duration } = movie;
+  const { nameRU, image, trailerLink, trailer, duration } = movie;
 
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
@@ -29,7 +29,7 @@ function MoviesCard({ movie, onDeleteMovie, savedMoviesData }) {
   }, [savedMoviesData, movie, isSavedMoviesPage]);
   
   const handleImageClick = () => {
-    window.open(trailerLink, '_blank');
+    window.open(isSavedMoviesPage ? trailer : trailerLink, '_blank');
   };
 
   const handleLike = async (movie) => {
@@ -71,7 +71,7 @@ function MoviesCard({ movie, onDeleteMovie, savedMoviesData }) {
           <p className="moviesCard__description__name">{nameRU}</p>
           <p className="moviesCard__description__time">{durationText}</p>
         </div>
-        <a href={trailerLink} target="_blank" rel="noopener noreferrer">
+        <a href={isSavedMoviesPage ? trailer : `${baseUrl + movie.image.url}`} target="_blank" rel="noopener noreferrer">
           <img
             src={isSavedMoviesPage ? `${image}` : `${baseUrl + movie.image.url}`}
             className="moviesCard__container-image"

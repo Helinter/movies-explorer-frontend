@@ -1,14 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useLocation } from 'react-router-dom';
 
 function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
 
+  const location = useLocation();
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
+
   useEffect(() => {
+    // Восстановление данных из localStorage при монтировании компонента
+    const savedSearchQuery = localStorage.getItem('searchQuery');
+    const savedShortFilm = localStorage.getItem('shortFilm');
+  
+    if (!isSavedMoviesPage && savedSearchQuery) {
+      setSearchQuery(savedSearchQuery);
+    }
+  
+    if (!isSavedMoviesPage && savedShortFilm) {
+      setShortFilm(savedShortFilm ? JSON.parse(savedShortFilm) : false);
+    }
+  
+    // Обновление данных сразу после восстановления
+    filterMovies();
+  
+    // Общая логика для обновления moviesData
     setMoviesData(initialMoviesData);
-  }, [initialMoviesData]);
+  }, [initialMoviesData, isSavedMoviesPage]);
+  
 
   useEffect(() => {
     filterMovies();
@@ -30,6 +51,10 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
     if (searchQuery.trim() !== '') {
       setIsFinded(searchQuery);
     }
+
+    // Сохранение данных в localStorage при сабмите формы
+    localStorage.setItem('searchQuery', searchQuery);
+    localStorage.setItem('shortFilm', shortFilm.toString());
   };
 
   const handleInputChange = (event) => {
@@ -37,7 +62,11 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
   };
 
   const handleCheckboxChange = () => {
-    setShortFilm(!shortFilm);
+    const newShortFilm = !shortFilm;
+    setShortFilm(newShortFilm);
+    
+    // Сохранение актуального значения чекбокса в localStorage
+    localStorage.setItem('shortFilm', newShortFilm.toString());
   };
 
   return (

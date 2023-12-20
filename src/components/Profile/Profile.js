@@ -12,8 +12,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleLogout = () => {
-    // При клике на ссылку, удаляем токен из sessionStorage
-    removeToken();
+    localStorage.clear();
   };
 
   const handleNameChange = (event) => {
@@ -37,7 +36,7 @@ function Profile() {
       updateCurrentUser(name, email);
     } catch (error) {
       console.error('Error updating user info:', error);
-    } 
+    }
   };
 
   return (
