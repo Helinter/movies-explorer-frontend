@@ -17,6 +17,9 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
   
     if (!isSavedMoviesPage && savedSearchQuery) {
       setSearchQuery(savedSearchQuery);
+      setIsFinded(savedSearchQuery); // Устанавливаем isFinded в значение строки сохраненного поискового запроса
+    } else {
+      setIsFinded(''); // Устанавливаем isFinded в пустую строку, если нет сохраненного поискового запроса
     }
   
     if (!isSavedMoviesPage && savedShortFilm) {
@@ -51,10 +54,11 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
     if (searchQuery.trim() !== '') {
       setIsFinded(searchQuery);
     }
-
+    if (!isSavedMoviesPage){
     // Сохранение данных в localStorage при сабмите формы
     localStorage.setItem('searchQuery', searchQuery);
     localStorage.setItem('shortFilm', shortFilm.toString());
+    }
   };
 
   const handleInputChange = (event) => {

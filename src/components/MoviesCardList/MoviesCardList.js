@@ -77,17 +77,15 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
 
   return (
     <>
-      {loading ? (
-        <Preloader />
-      ) : (
+      {(isSavedMoviesPage || (isFinded !== '' && !loading)) ? (
         <>
           <ul className={cardListClass}>
             {movies
               .filter(movie => !shortFilm || (shortFilm && movie.duration <= 40))
-              .slice(0, isSavedMoviesPage ? movies.length : visibleCards)
+              .slice(0, visibleCards)
               .map((movie, index) => (
                 <li key={index}>
-                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} savedMoviesData={savedMoviesData}/>
+                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} savedMoviesData={savedMoviesData} />
                 </li>
               ))}
           </ul>
@@ -95,7 +93,8 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
             <More showButton={true} onClick={handleShowMore} />
           )}
         </>
-      )}
+      ) : null}
+      {loading && <Preloader />}
     </>
   );
 }
