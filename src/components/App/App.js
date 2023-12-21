@@ -10,16 +10,22 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { CurrentUserProvider } from '../../context/CurrentUserContext';
+import Modal from '../Modal/Modal';
 
 
 function App() {
-  
+
   const [isLogedin, setIsLogedin] = useState(() => {
     // Пытаемся получить значение из localStorage
     const storedIsLogedin = localStorage.getItem('isLogedin');
     // Преобразуем значение в булев тип и возвращаем
     return storedIsLogedin ? JSON.parse(storedIsLogedin) : false;
   });
+
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
+  const [error, setError] = useState(null);
+  const [isProfileEdited, setIsProfileEdited] = useState(false);
 
   useEffect(() => {
     // При изменении значения сохраняем его в localStorage
@@ -28,25 +34,51 @@ function App() {
 
   return (
     <CurrentUserProvider>
-    <Router>
+      <Router>
 
-      <main className="page">
+        <main className="page">
 
-        <Routes>
+          <Routes>
 
-          <Route path="/signup" element={<Register />} />
-          <Route path="/signin" element={<Login setIsLogedin={setIsLogedin }/>} />
-          <Route path="/" element={<Main isLogedin={isLogedin}/>}/>
-          <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin}/>}/>
-          <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin}/>}/>
-          <Route path="/profile" element={<ProtectedRouteElement element={Profile} isLogedin={isLogedin} setIsLogedin={setIsLogedin}/>}/>
-          <Route path="*" element={<NotFound />} />
+            <Route path="/signup" element={<Register
+              setIsRegistered={setIsRegistered}
+              setImageSrc={setImageSrc}
+              setError={setError} />} />
+            <Route path="/signin" element={<Login setIsLogedin={setIsLogedin} />} />
+            <Route path="/" element={<Main isLogedin={isLogedin} />} />
+            <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin} />} />
+            <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin} />} />
+            <Route path="/profile" element={<ProtectedRouteElement element={Profile} setImageSrc={setImageSrc}
+            setError={setError} setIsProfileEdited={setIsProfileEdited} isLogedin={isLogedin} setIsLogedin={setIsLogedin} />} />
+            <Route path="*" element={<NotFound />} />
 
-        </Routes>
+          </Routes>
+          {isRegistered && (
+            <Modal
+              message="Вы успешно зарегистрировались!"
+              onClose={() => setIsRegistered(false)}
+              imageSrc={imageSrc}
+            />
+          )}
 
-      </main>
+          {isProfileEdited && (
+            <Modal
+              message="Данные успешно изменены!"
+              onClose={() => setIsProfileEdited(false)}
+              imageSrc={imageSrc}
+            />
+          )}
 
-    </Router>
+          {error && (
+            <Modal
+              message="Что-то пошло не так! Попробуйте ещё раз."
+              onClose={() => setError(null)}
+              imageSrc={imageSrc}
+            />
+          )}
+        </main>
+
+      </Router>
     </CurrentUserProvider>
   );
 }

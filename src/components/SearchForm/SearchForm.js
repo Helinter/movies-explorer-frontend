@@ -37,6 +37,7 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
   useEffect(() => {
     filterMovies();
   }, [shortFilm, isFinded]);
+  
 
   const filterMovies = () => {
     const filteredMovies = moviesData.filter(movie =>

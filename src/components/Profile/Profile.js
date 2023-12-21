@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 import { useCurrentUser } from '../../context/CurrentUserContext';
 import { useFormWithValidation } from '../FormValidator/FormValidator';
+import Union from '../../images/Union.svg';
+import Unioner from '../../images/Unioner.svg';
 
-function Profile({ isLogedin, setIsLogedin }) {
+function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, setError }) {
   const { currentUser, updateCurrentUser } = useCurrentUser();
   const { values, handleChange, isValid, resetForm, validateEmail, validateName } = useFormWithValidation();
 
@@ -54,9 +56,13 @@ function Profile({ isLogedin, setIsLogedin }) {
             name: updatedUserData.name,
             email: updatedUserData.email,
           });
+          setIsProfileEdited(true);
+      setImageSrc(Union);
         }
       } catch (error) {
         console.error('Error updating user info:', error);
+        setError(error.message || 'Что-то пошло не так! Попробуйте ещё раз.');
+      setImageSrc(Unioner);
       }
     }
   };

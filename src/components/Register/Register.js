@@ -3,8 +3,10 @@ import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 import { useFormWithValidation } from '../FormValidator/FormValidator';
+import Union from '../../images/Union.svg';
+import Unioner from '../../images/Unioner.svg';
 
-function Register() {
+function Register({ setIsRegistered, setImageSrc, setError }) {
   const { values, handleChange, isValid, resetForm, validateEmail, validateName, validatePassword } = useFormWithValidation();
 
   const handleRegister = async (e) => {
@@ -14,10 +16,14 @@ function Register() {
       try {
         const response = await api.createUser(values.name, values.email, values.password);
         console.log('Успешная регистрация:', response);
+        setIsRegistered(true);
+        setImageSrc(Union);
         // Сбросим форму после успешной регистрации
         resetForm();
       } catch (error) {
         console.error('Ошибка регистрации:', error);
+        setError(error.message || 'Что-то пошло не так! Попробуйте ещё раз.');
+        setImageSrc(Unioner);
       }
     }
   };
