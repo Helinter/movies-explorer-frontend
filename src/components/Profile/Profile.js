@@ -116,9 +116,9 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
           )}
         </form>
         {!isEditing && (
-          <a href="#" className="profile__link-q" onClick={handleEditClick}>
+          <button href="#" className="profile__link-q" onClick={handleEditClick}>
             Редактировать
-          </a>
+          </button>
         )}
         <Link className="profile__link" onClick={handleLogout} to="/signin">
           Выйти из аккаунта

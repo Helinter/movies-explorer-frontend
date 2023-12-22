@@ -1,102 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
 function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
-  const [searchQuery, setSearchQuery] = useState('');
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
+  const [inputValue, setInputValue] = useState(isFinded || ''); 
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
-  useEffect(() => {
-    // Восстановление данных из localStorage при монтировании компонента
-    const savedSearchQuery = localStorage.getItem('searchQuery');
-    const savedShortFilm = localStorage.getItem('shortFilm');
-  
-    if (!isSavedMoviesPage && savedSearchQuery) {
-      setSearchQuery(savedSearchQuery);
-      setIsFinded(savedSearchQuery); // Устанавливаем isFinded в значение строки сохраненного поискового запроса
-    } else {
-      setIsFinded(''); // Устанавливаем isFinded в пустую строку, если нет сохраненного поискового запроса
-    }
-  
-    if (!isSavedMoviesPage && savedShortFilm) {
-      setShortFilm(savedShortFilm ? JSON.parse(savedShortFilm) : false);
-    }
-  
-    // Обновление данных сразу после восстановления
-    filterMovies();
-  
-    // Общая логика для обновления moviesData
-    setMoviesData(initialMoviesData);
-  }, [initialMoviesData, isSavedMoviesPage]);
-  
-
-  useEffect(() => {
-    filterMovies();
-  }, [shortFilm, isFinded]);
-  
-
-  const filterMovies = () => {
+  const filterMovies = useCallback(() => {
     const filteredMovies = moviesData.filter(movie =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+      movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
     );
 
     const finalFilteredMovies = shortFilm ? filteredMovies.filter(movie => movie.duration <= 40) : filteredMovies;
 
     setMovies(finalFilteredMovies);
-  };
+  }, [moviesData, isFinded, shortFilm, setMovies]);
+
+  useEffect(() => {
+    // Восстановление данных из localStorage при монтировании компонента
+    const savedSearchQuery = localStorage.getItem('isFinded');
+    const savedShortFilm = localStorage.getItem('shortFilm');
+
+    if (!isSavedMoviesPage && savedSearchQuery) {
+      setIsFinded(savedSearchQuery);
+      setShortFilm(savedShortFilm ? JSON.parse(savedShortFilm) : false);
+      setInputValue(savedSearchQuery); // Установим значение в инпуте
+    } else {
+      setIsFinded('');
+    }
+
+    setMoviesData(initialMoviesData);
+  }, [initialMoviesData, isSavedMoviesPage, setIsFinded]);
+
+  useEffect(() => {
+    filterMovies();
+  }, [filterMovies, inputValue, shortFilm]);
 
   const handleSearch = (event) => {
     event.preventDefault();
-    if (searchQuery.trim() !== '') {
-      setIsFinded(searchQuery);
-    }
-    if (!isSavedMoviesPage){
-    // Сохранение данных в localStorage при сабмите формы
-    localStorage.setItem('searchQuery', searchQuery);
-    localStorage.setItem('shortFilm', shortFilm.toString());
+    if (inputValue !== '') {
+      setIsFinded(inputValue);
+      if (!isSavedMoviesPage) {
+        localStorage.setItem('isFinded', inputValue);
+        localStorage.setItem('shortFilm', shortFilm.toString());
+      }
     }
   };
+  
+  
 
   const handleInputChange = (event) => {
-    setSearchQuery(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleCheckboxChange = () => {
     const newShortFilm = !shortFilm;
     setShortFilm(newShortFilm);
-    
-    // Сохранение актуального значения чекбокса в localStorage
+
     localStorage.setItem('shortFilm', newShortFilm.toString());
   };
 
   return (
-    <>
-      <section className="searchForm">
-        <form onSubmit={handleSearch}>
-          <div className="searchForm__input__container">
-            <input
-              className="searchForm__input"
-              minLength="2"
-              maxLength="30"
-              type="text"
-              name="searchForm"
-              placeholder="Фильм"
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
-            <button className="searchForm__button" type="submit">
-              Поиск
-            </button>
-          </div>
-          <FilterCheckbox isChecked={shortFilm} onCheckboxChange={handleCheckboxChange} />
-        </form>
-      </section>
-    </>
+    <section className="searchForm">
+      <form onSubmit={handleSearch}>
+        <div className="searchForm__input__container">
+          <input
+            className="searchForm__input"
+            minLength="2"
+            maxLength="30"
+            type="text"
+            name="searchForm"
+            placeholder="Фильм"
+            defaultValue={inputValue}
+            onChange={handleInputChange}
+            value={inputValue}
+          />
+          <button className="searchForm__button" type="submit">
+            Поиск
+          </button>
+        </div>
+        <FilterCheckbox isChecked={shortFilm} onCheckboxChange={handleCheckboxChange} />
+      </form>
+    </section>
   );
 }
 

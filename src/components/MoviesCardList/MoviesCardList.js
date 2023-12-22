@@ -36,7 +36,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [isSavedMoviesPage]);
+  }, [isSavedMoviesPage, movies.length]);
   
 
   useEffect(() => {

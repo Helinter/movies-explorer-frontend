@@ -28,7 +28,7 @@ function SavedMovies({isLogedin}) {
     if (!moviesData.length) {
       fetchData();
     }
-  }, []);
+  }, [moviesData.length]);
 
   return (
     <>
