@@ -1,7 +1,7 @@
 import React from "react";
 
 export function useFormWithValidation() {
-  const [values, setValues] = React.useState({});
+  const [values, setValues] = React.useState({ searchForm: '' });
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
@@ -44,6 +44,10 @@ export function useFormWithValidation() {
     return "";
   };
 
+  const validateSearch = (search) => {
+    return search.trim() !== "" ? "" : "Нужно ввести ключевое слово";
+  };
+
   return {
     values,
     handleChange,
@@ -53,5 +57,6 @@ export function useFormWithValidation() {
     validateEmail,
     validateName,
     validatePassword,
+    validateSearch,
   };
 }

@@ -81,3 +81,8 @@
     top: 76px;
   }
 }
+
+.span{
+  position: absolute;
+  top: 144px;
+}
