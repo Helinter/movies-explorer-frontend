@@ -44,10 +44,6 @@ export function useFormWithValidation() {
     return "";
   };
 
-  const validateSearch = (search) => {
-    return search.trim() !== "" ? "" : "Нужно ввести ключевое слово";
-  };
-
   return {
     values,
     handleChange,
@@ -57,6 +53,5 @@ export function useFormWithValidation() {
     validateEmail,
     validateName,
     validatePassword,
-    validateSearch,
   };
 }
