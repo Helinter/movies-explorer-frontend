@@ -53,5 +53,6 @@ export function useFormWithValidation() {
     validateEmail,
     validateName,
     validatePassword,
+    setValues,
   };
 }

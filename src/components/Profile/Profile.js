@@ -9,18 +9,44 @@ import Unioner from '../../images/Unioner.svg';
 
 function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, setError }) {
   const { currentUser, updateCurrentUser } = useCurrentUser();
-  const { values, handleChange, isValid, resetForm, validateEmail, validateName } = useFormWithValidation();
-
+  const { values, handleChange, isValid, resetForm, validateEmail, validateName, setValues } = useFormWithValidation();
+  const [savedValues, setSavedValues] = useState({});
+  const [hasChanges, setHasChanges] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [hasErrors, setHasErrors] = useState(true); // Инициализируем как true
+
+  useEffect(() => {
+    // Проверка наличия ошибок в значениях
+    setHasErrors(
+      !!validateName(values.name) || !!validateEmail(values.email)
+    );
+  }, [values, validateName, validateEmail]);
+
+
 
   useEffect(() => {
     if (currentUser) {
+      setSavedValues({
+        name: currentUser.name || '',
+        email: currentUser.email || '',
+      });
+      setValues({
+        name: currentUser.name || '',
+        email: currentUser.email || '',
+      });
       resetForm({
         name: currentUser.name || '',
         email: currentUser.email || '',
       });
     }
   }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    // Проверка наличия изменений в значениях
+    setHasChanges(
+      values.name !== savedValues.name || values.email !== savedValues.email
+    );
+  }, [values, savedValues]);
 
   useEffect(() => {
     if (!currentUser && !values.name && !values.email) {
@@ -38,13 +64,19 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
   };
 
   const handleEditClick = () => {
+    if (!isEditing) {
+      setSavedValues({
+        name: values.name || '',
+        email: values.email || '',
+      });
+    }
     setIsEditing(!isEditing);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (isValid) {
+    if (!hasErrors && isValid) {
       try {
         const { name, email } = values;
         const updatedUserData = await api.updateUserInfo(name, email);
@@ -57,12 +89,12 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
             email: updatedUserData.email,
           });
           setIsProfileEdited(true);
-      setImageSrc(Union);
+          setImageSrc(Union);
         }
       } catch (error) {
         console.error('Error updating user info:', error);
         setError(error.message || 'Что-то пошло не так! Попробуйте ещё раз.');
-      setImageSrc(Unioner);
+        setImageSrc(Unioner);
       }
     }
   };
@@ -76,7 +108,7 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
           <div className="profile__input-container">
             <input
               id="profileName"
-              className="profile__input"
+              className={`profile__input ${hasErrors &&  'profile__input_error'}`}
               minLength="2"
               maxLength="30"
               type="text"
@@ -94,7 +126,7 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
           <div className="profile__input-container">
             <input
               id="profileEmail"
-              className="profile__input"
+              className={`profile__input ${hasErrors && 'profile__input_error'}`}
               minLength="2"
               maxLength="30"
               type="text"
@@ -110,7 +142,7 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
             <span className="profile__error">{validateEmail(values.email)}</span>
           </div>
           {isEditing && (
-            <button type="submit" className="profile__button" id="SignInSubmit">
+            <button type="submit" className={`profile__button ${(!hasChanges || hasErrors) && 'profile__button_disabled'}`} id="SignInSubmit" disabled={!hasChanges || hasErrors}>
               Сохранить
             </button>
           )}
