@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
@@ -9,12 +9,27 @@ import { useFormWithValidation } from '../FormValidator/FormValidator';
 function Login({ setIsLogedin }) {
   const { updateCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
-  const { values, handleChange, isValid, validateEmail, validatePassword } = useFormWithValidation();
+  const {
+    values,
+    handleChange,
+    isValid,
+    validateEmail,
+    validatePassword,
+    errors,
+  } = useFormWithValidation();
+  const [hasErrors, setHasErrors] = useState(true); // Инициализируем как true
+
+  useEffect(() => {
+    // Проверка наличия ошибок в значениях
+    setHasErrors(
+      !!validateEmail(values.email) || !!validatePassword(values.password)
+    );
+  }, [values, validateEmail, validatePassword]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (isValid) {
+    if (!hasErrors && isValid) {
       try {
         const response = await api.login(values.email, values.password);
         if (response.token) {
@@ -46,7 +61,7 @@ function Login({ setIsLogedin }) {
           <div className="register__input-container">
             <input
               id="registerEmail"
-              className="signup__input"
+              className={`signup__input ${errors.email && 'signup__input_error'}`}
               minLength="2"
               maxLength="30"
               type="text"
@@ -55,16 +70,20 @@ function Login({ setIsLogedin }) {
               onChange={handleChange}
               value={values.email || ''}
             />
+            {values.email && (
+              <span className="signup__error-message">
+                {validateEmail(values.email)}
+              </span>
+            )}
             <label className="register__input-label" htmlFor="registerEmail">
               E-mail
             </label>
           </div>
-          <span>{validateEmail(values.email)}</span>
 
           <div className="register__input-container">
             <input
               id="registerPassword"
-              className="signup__input"
+              className={`signup__input ${errors.password && 'signup__input_error'}`}
               minLength="2"
               maxLength="30"
               type="password"
@@ -73,13 +92,22 @@ function Login({ setIsLogedin }) {
               onChange={handleChange}
               value={values.password || ''}
             />
+            {values.password && (
+              <span className="signup__error-message">
+                {validatePassword(values.password)}
+              </span>
+            )}
             <label className="register__input-label" htmlFor="registerPassword">
               Пароль
             </label>
           </div>
-          <span>{validatePassword(values.password)}</span>
 
-          <button type="submit" className="signin__button" id="SignInSubmit" disabled={!isValid}>
+          <button
+            type="submit"
+            className={`signin__button ${hasErrors && 'signin__button_disabled'}`}
+            id="SignInSubmit"
+            disabled={hasErrors}
+          >
             Войти
           </button>
         </form>
