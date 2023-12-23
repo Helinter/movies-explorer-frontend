@@ -15,7 +15,7 @@ export class MoviesApi {
   }
 
   async getMovies() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
   
     if (!token) {
       return Promise.reject('Токен отсутствует');

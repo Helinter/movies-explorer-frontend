@@ -76,7 +76,6 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
             type="text"
             name="searchForm"
             placeholder="Фильм"
-            defaultValue={inputValue}
             onChange={handleInputChange}
             value={inputValue}
           />

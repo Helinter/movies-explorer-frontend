@@ -36,7 +36,7 @@ export class Api {
   }  
 
   async getUserInfo() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
   
     if (!token) {
       return Promise.reject('Токен отсутствует');
@@ -74,7 +74,7 @@ export class Api {
 
   // Метод для получения карточек с сервера
   async getSavedMovies() {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
   
     if (!token) {
       return Promise.reject('Токен отсутствует');

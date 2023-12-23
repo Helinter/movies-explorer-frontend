@@ -41,6 +41,7 @@ function App() {
           <Routes>
 
             <Route path="/signup" element={<Register
+              setIsLogedin={setIsLogedin}
               setIsRegistered={setIsRegistered}
               setImageSrc={setImageSrc}
               setError={setError} />} />
@@ -49,7 +50,7 @@ function App() {
             <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin} />} />
             <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin} />} />
             <Route path="/profile" element={<ProtectedRouteElement element={Profile} setImageSrc={setImageSrc}
-            setError={setError} setIsProfileEdited={setIsProfileEdited} isLogedin={isLogedin} setIsLogedin={setIsLogedin} />} />
+              setError={setError} setIsProfileEdited={setIsProfileEdited} isLogedin={isLogedin} setIsLogedin={setIsLogedin} />} />
             <Route path="*" element={<NotFound />} />
 
           </Routes>

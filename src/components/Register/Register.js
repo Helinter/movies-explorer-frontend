@@ -5,9 +5,14 @@ import { api } from '../../utils/MainApi';
 import { useFormWithValidation } from '../FormValidator/FormValidator';
 import Union from '../../images/Union.svg';
 import Unioner from '../../images/Unioner.svg';
+import {  useNavigate } from 'react-router-dom';
+import { setToken } from '../TokenHelper/TokenHelper';
+import { useCurrentUser } from '../../context/CurrentUserContext';
 
-function Register({ setIsRegistered, setImageSrc, setError }) {
-  const { values, handleChange, isValid, resetForm, validateEmail, validateName, validatePassword } = useFormWithValidation();
+function Register({ setIsRegistered, setImageSrc, setError, setIsLogedin }) {
+  const { values, handleChange, isValid, validateEmail, validateName, validatePassword } = useFormWithValidation();
+  const { updateCurrentUser } = useCurrentUser();
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -18,8 +23,21 @@ function Register({ setIsRegistered, setImageSrc, setError }) {
         console.log('Успешная регистрация:', response);
         setIsRegistered(true);
         setImageSrc(Union);
-        // Сбросим форму после успешной регистрации
-        resetForm();
+        const res = await api.login(values.email, values.password);
+        if (res.token) {
+          setToken(res.token);
+          setIsLogedin(true);
+          const storedCurrentUser = localStorage.getItem('currentUser');
+          const userData = await api.getUserInfo();
+          if (userData) {
+            updateCurrentUser(userData);
+
+            if (!storedCurrentUser) {
+              localStorage.setItem('currentUser', JSON.stringify(userData));
+            }
+          }
+          navigate('/movies');
+        }
       } catch (error) {
         console.error('Ошибка регистрации:', error);
         setError(error.message || 'Что-то пошло не так! Попробуйте ещё раз.');
