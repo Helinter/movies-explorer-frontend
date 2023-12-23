@@ -120,7 +120,7 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
             Редактировать
           </button>
         )}
-        <Link className="profile__link" onClick={handleLogout} to="/signin">
+        <Link className="profile__link" onClick={handleLogout} to="/">
           Выйти из аккаунта
         </Link>
       </section>

@@ -6,7 +6,7 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { useState, useEffect } from 'react';
 import { CurrentUserProvider } from '../../context/CurrentUserContext';
@@ -40,12 +40,14 @@ function App() {
 
           <Routes>
 
-            <Route path="/signup" element={<Register
-              setIsLogedin={setIsLogedin}
-              setIsRegistered={setIsRegistered}
-              setImageSrc={setImageSrc}
-              setError={setError} />} />
-            <Route path="/signin" element={<Login setIsLogedin={setIsLogedin} />} />
+          <Route
+              path="/signup"
+              element={isLogedin ? <Navigate to="/" /> : <Register setIsLogedin={setIsLogedin} setIsRegistered={setIsRegistered} setImageSrc={setImageSrc} setError={setError} />}
+            />
+            <Route
+              path="/signin"
+              element={isLogedin ? <Navigate to="/" /> : <Login setIsLogedin={setIsLogedin} />}
+            />
             <Route path="/" element={<Main isLogedin={isLogedin} />} />
             <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin} />} />
             <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin} />} />
