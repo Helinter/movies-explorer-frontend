@@ -3,9 +3,9 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
 import More from '../More/More';
-import { api } from '../../utils/MainApi';
 
-function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
+
+function MoviesCardList({ savedMovies, setSavedMovies, movies, loading, isFinded, shortFilm, setMovies }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
@@ -60,20 +60,9 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
     setMovies(updatedMovies); // Обновляем состояние movies
   };
 
-  const [savedMoviesData, setSavedMoviesData] = useState([]);
-
   useEffect(() => {
-    const fetchSavedMovies = async () => {
-      try {
-        const fetchedSavedMoviesData = await api.getSavedMovies();
-        setSavedMoviesData(fetchedSavedMoviesData);
-      } catch (error) {
-        console.error('Ошибка при получении сохраненных фильмов:', error);
-      }
-    };
-
-    fetchSavedMovies();
-  }, []);
+    console.log('moviesData:', movies);
+  }, [movies]);
 
   return (
     <>
@@ -85,7 +74,7 @@ function MoviesCardList({ movies, loading, isFinded, shortFilm, setMovies }) {
               .slice(0, visibleCards)
               .map((movie, index) => (
                 <li key={index}>
-                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} savedMoviesData={savedMoviesData} />
+                  <MoviesCard movie={movie} onDeleteMovie={handleDeleteMovie} savedMoviesData={savedMovies} />
                 </li>
               ))}
           </ul>

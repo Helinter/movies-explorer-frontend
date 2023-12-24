@@ -189,4 +189,5 @@
 .profile__button_disabled{
   background: #F8F8F8;
   color: #202020;
+  cursor: auto;
 }

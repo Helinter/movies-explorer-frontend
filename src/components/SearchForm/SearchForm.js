@@ -2,12 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
+function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFinded, initialMoviesData, setHasSearchedOnce }) {
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
   const [inputValue, setInputValue] = useState(isFinded || ''); 
   const [spanText, setSpanText] = useState(''); 
-
 
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
@@ -21,13 +20,21 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
     const finalFilteredMovies = shortFilm ? filteredMovies.filter(movie => movie.duration <= 40) : filteredMovies;
 
     setMovies(finalFilteredMovies);
+
+    // Устанавливаем spanText в "Ничего не найдено", если фильмы отсутствуют
+    if (finalFilteredMovies.length === 0) {
+      setSpanText('Ничего не найдено');
+    } else {
+      setSpanText(''); // Сбрасываем текст, если фильмы есть
+    }
   }, [moviesData, isFinded, shortFilm, setMovies]);
+
 
   useEffect(() => {
     // Восстановление данных из localStorage при монтировании компонента
     const savedSearchQuery = localStorage.getItem('isFinded');
     const savedShortFilm = localStorage.getItem('shortFilm');
-
+  
     if (!isSavedMoviesPage && savedSearchQuery) {
       setIsFinded(savedSearchQuery);
       setShortFilm(savedShortFilm ? JSON.parse(savedShortFilm) : false);
@@ -35,13 +42,10 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
     } else {
       setIsFinded('');
     }
-
+  
     setMoviesData(initialMoviesData);
   }, [initialMoviesData, isSavedMoviesPage, setIsFinded]);
-
-  useEffect(() => {
-    filterMovies();
-  }, [filterMovies, inputValue, shortFilm]);
+  
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -52,12 +56,18 @@ function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData }) {
         localStorage.setItem('isFinded', inputValue);
         localStorage.setItem('shortFilm', shortFilm.toString());
       }
-    }else{
+      if(setHasSearchedOnce){
+        setHasSearchedOnce(true);
+      }
+      
+    } else {
       setSpanText('Нужно ввести ключевое слово');
     }
   };
   
-  
+  useEffect(() => {
+    filterMovies();
+  }, [filterMovies, inputValue, shortFilm]);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
