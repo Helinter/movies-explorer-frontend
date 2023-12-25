@@ -5,7 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import More from '../More/More';
 
 
-function MoviesCardList({ savedMovies, setSavedMovies, movies, loading, isFinded, shortFilm, setMovies }) {
+function MoviesCardList({ savedMovies, movies, loading, isFinded, shortFilm, setMovies }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
@@ -49,8 +49,15 @@ function MoviesCardList({ savedMovies, setSavedMovies, movies, loading, isFinded
   }, [isFinded]);
 
   const handleShowMore = () => {
+    let additionalCards;
+    if (window.innerWidth > 1279) {
+      additionalCards = 3;
+    } else {
+      additionalCards = 2;
+    }
+  
     // При нажатии на кнопку "Еще" увеличиваем количество видимых карточек
-    setVisibleCards(prevVisibleCards => prevVisibleCards + cardsPerPage);
+    setVisibleCards(prevVisibleCards => prevVisibleCards + additionalCards);
   };
 
   const handleDeleteMovie = (movieId) => {

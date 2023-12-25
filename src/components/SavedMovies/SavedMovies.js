@@ -25,10 +25,10 @@ function SavedMovies({isLogedin}) {
       }
     };
 
-    if (!moviesData.length) {
+    if (moviesData!=='[]') {
       fetchData();
     }
-  }, [moviesData.length]);
+  }, []);
 
   return (
     <>

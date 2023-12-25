@@ -25,8 +25,10 @@ function Movies({ isLogedin }) {
         console.error('Ошибка при получении сохраненных фильмов:', error);
       }
     };
-
-    fetchSavedMovies();
+if(savedMovies!=='[]'){
+  fetchSavedMovies();
+}
+   
   }, []);
 
 

@@ -2,7 +2,7 @@ function More({ showButton = true, onClick }) {
   if (!showButton) {
     return (
       <div className="more" style={{ marginBottom: '140px' }}>
-        {/* Пустой блок без кнопки */}
+        
       </div>
     );
   }
