@@ -67,10 +67,6 @@ function MoviesCardList({ savedMovies, movies, loading, isFinded, shortFilm, set
     setMovies(updatedMovies); // Обновляем состояние movies
   };
 
-  useEffect(() => {
-    console.log('moviesData:', movies);
-  }, [movies]);
-
   return (
     <>
       {(isSavedMoviesPage || (isFinded !== '' && !loading)) ? (

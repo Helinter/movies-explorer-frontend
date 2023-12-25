@@ -7,7 +7,7 @@ import { useFormWithValidation } from '../FormValidator/FormValidator';
 import Union from '../../images/Union.svg';
 import Unioner from '../../images/Unioner.svg';
 
-function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, setError }) {
+function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, setError, handleLogout }) {
   const { currentUser, updateCurrentUser } = useCurrentUser();
   const { values, handleChange, isValid, resetForm, validateEmail, validateName, setValues } = useFormWithValidation();
   const [savedValues, setSavedValues] = useState({});
@@ -57,11 +57,6 @@ function Profile({ isLogedin, setIsLogedin, setIsProfileEdited, setImageSrc, set
       }
     }
   }, [currentUser, values.name, values.email, updateCurrentUser]);
-
-  const handleLogout = () => {
-    localStorage.clear();
-    setIsLogedin(false);
-  };
 
   const handleEditClick = () => {
     if (!isEditing) {

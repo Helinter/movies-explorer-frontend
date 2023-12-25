@@ -5,7 +5,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { api } from '../../utils/MainApi';
 
-function SavedMovies({isLogedin}) {
+function SavedMovies({isLogedin, hasSearchedOnce, setHasSearchedOnce}) {
   const [isFinded, setIsFinded] = useState('');
   const [moviesData, setMoviesData] = useState([]);
   const [movies, setMovies] = useState([]);
@@ -40,6 +40,8 @@ function SavedMovies({isLogedin}) {
           setLoading={setLoading}
           initialMoviesData={moviesData} 
           isFinded={isFinded}
+          setHasSearchedOnce={setHasSearchedOnce}
+          hasSearchedOnce={hasSearchedOnce}
         />
         <MoviesCardList
           movies={movies}

@@ -6,13 +6,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { moviesApi } from '../../utils/MoviesApi';
 import { api } from '../../utils/MainApi';
 
-function Movies({ isLogedin }) {
+function Movies({ isLogedin, hasSearchedOnce, setHasSearchedOnce}) {
   const [isFinded, setIsFinded] = useState('');
   const [moviesData, setMoviesData] = useState([]);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [hasSearchedOnce, setHasSearchedOnce] = useState(false);
 
 
   
@@ -83,6 +82,7 @@ if(savedMovies!=='[]'){
           initialMoviesData={moviesData}
           isFinded={isFinded}
           setHasSearchedOnce={setHasSearchedOnce}
+          hasSearchedOnce={hasSearchedOnce}
           savedMovies={savedMovies}
           setSavedMovies={setSavedMovies}
         />

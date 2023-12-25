@@ -1,5 +1,5 @@
 import { apiConfig } from './constants';
-import { getToken, setToken } from '../components/TokenHelper/TokenHelper';
+import { getToken, setToken, removeToken } from '../components/TokenHelper/TokenHelper';
 
 export class Api {
   constructor(config) {
@@ -24,16 +24,34 @@ export class Api {
   }
 
    // Метод для проверки валидности токена
-   async checkToken(token) {
-    const res = await fetch(`${this.url}/users/me`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    return this._checkResponse(res);
-  }  
+   async checkToken() {
+    try {
+      const token = getToken();
+      if (!token) {
+        throw new Error('Токен отсутствует');
+      }
+  
+      const res = await fetch(`${this.url}/users/me`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      return this._checkResponse(res);
+    } catch (error) {
+      // При ошибке или невалидном токене вызывайте "логаут"
+      this.logoutUser();
+      return Promise.reject(error.message);
+    }
+  }
+  
+  // Метод для "логаута" пользователя
+  logoutUser() {
+    
+    removeToken();
+  }
 
   async getUserInfo() {
     const token = localStorage.getItem('token');

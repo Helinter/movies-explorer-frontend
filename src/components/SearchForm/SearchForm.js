@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFinded, initialMoviesData, setHasSearchedOnce }) {
+function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFinded, initialMoviesData, setHasSearchedOnce, hasSearchedOnce }) {
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
   const [inputValue, setInputValue] = useState(isFinded || ''); 
@@ -22,7 +22,7 @@ function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFin
     setMovies(finalFilteredMovies);
 
     // Устанавливаем spanText в "Ничего не найдено", если фильмы отсутствуют
-    if (finalFilteredMovies.length === 0) {
+    if (finalFilteredMovies.length === 0 && hasSearchedOnce) {
       setSpanText('Ничего не найдено');
     } else {
       setSpanText(''); // Сбрасываем текст, если фильмы есть
@@ -92,7 +92,6 @@ function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFin
             placeholder="Фильм"
             defaultValue={inputValue}
             onChange={handleInputChange}
-            value={inputValue}
           />
           <span className="span">{spanText}</span>
           <button className="searchForm__button" type="submit">

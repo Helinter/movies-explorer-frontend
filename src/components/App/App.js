@@ -6,15 +6,16 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { useState, useEffect } from 'react';
-import { CurrentUserProvider } from '../../context/CurrentUserContext';
+import { useCurrentUser } from '../../context/CurrentUserContext';
 import Modal from '../Modal/Modal';
+import { api } from '../../utils/MainApi';
 
 
 function App() {
-
+  const navigate = useNavigate();
   const [isLogedin, setIsLogedin] = useState(() => {
     // Пытаемся получить значение из localStorage
     const storedIsLogedin = localStorage.getItem('isLogedin');
@@ -22,20 +23,40 @@ function App() {
     return storedIsLogedin ? JSON.parse(storedIsLogedin) : false;
   });
 
+  const [hasSearchedOnce, setHasSearchedOnce] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
   const [error, setError] = useState(null);
   const [isProfileEdited, setIsProfileEdited] = useState(false);
+  const { updateCurrentUser } = useCurrentUser();
+
+  useEffect(() => {
+    // Вызвать метод checkToken при загрузке приложения
+    api.checkToken()
+      .then(userData => {
+        updateCurrentUser(userData);
+        setIsLogedin(true);
+      })
+      .catch(error => {
+        console.error('Ошибка проверки токена:', error);
+        // Выполнить логаут в случае ошибки или невалидного токена
+        handleLogout();
+      });
+  }, []);
 
   useEffect(() => {
     // При изменении значения сохраняем его в localStorage
     localStorage.setItem('isLogedin', JSON.stringify(isLogedin));
   }, [isLogedin]);
 
-  return (
-    <CurrentUserProvider>
-      <Router>
+  const handleLogout = () => {
+    localStorage.clear();
+    setIsLogedin(false);
+    navigate('/');
+  };
 
+  return (
+  
         <main className="page">
 
           <Routes>
@@ -49,9 +70,9 @@ function App() {
               element={isLogedin ? <Navigate to="/" /> : <Login setIsLogedin={setIsLogedin} />}
             />
             <Route path="/" element={<Main isLogedin={isLogedin} />} />
-            <Route path="/movies" element={<ProtectedRouteElement element={Movies} isLogedin={isLogedin} />} />
-            <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} isLogedin={isLogedin} />} />
-            <Route path="/profile" element={<ProtectedRouteElement element={Profile} setImageSrc={setImageSrc}
+            <Route path="/movies" element={<ProtectedRouteElement element={Movies} hasSearchedOnce={hasSearchedOnce} setHasSearchedOnce={setHasSearchedOnce} isLogedin={isLogedin} />} />
+            <Route path="/saved-movies" element={<ProtectedRouteElement element={SavedMovies} hasSearchedOnce={hasSearchedOnce} setHasSearchedOnce={setHasSearchedOnce} isLogedin={isLogedin} />} />
+            <Route path="/profile" element={<ProtectedRouteElement element={Profile} handleLogout={handleLogout} setImageSrc={setImageSrc}
               setError={setError} setIsProfileEdited={setIsProfileEdited} isLogedin={isLogedin} setIsLogedin={setIsLogedin} />} />
             <Route path="*" element={<NotFound />} />
 
@@ -81,8 +102,6 @@ function App() {
           )}
         </main>
 
-      </Router>
-    </CurrentUserProvider>
   );
 }
 
