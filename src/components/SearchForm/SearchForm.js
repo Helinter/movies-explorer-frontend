@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFinded, initialMoviesData, setHasSearchedOnce, hasSearchedOnce }) {
+function SearchForm({ setIsFinded, setMovies, isFinded, initialMoviesData, setHasSearchedOnce, hasSearchedOnce }) {
   const [shortFilm, setShortFilm] = useState(false);
   const [moviesData, setMoviesData] = useState([]);
   const [inputValue, setInputValue] = useState(isFinded || ''); 
@@ -12,6 +12,9 @@ function SearchForm({ savedMovies, setSavedMovies, setIsFinded, setMovies, isFin
   const isSavedMoviesPage = location.pathname === '/saved-movies';
 
   const filterMovies = useCallback(() => {
+    if (initialMoviesData.length === 0) {
+      return;
+    }
     const filteredMovies = moviesData.filter(movie =>
       movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
       movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())

@@ -31,9 +31,14 @@ export function useFormWithValidation() {
   };
 
   const validateName = (name) => {
+    if (!name) {
+      return "Введите ваше имя";
+    }
+  
     if (!/^[A-Za-zА-Яа-яЁё\s-]+$/.test(name)) {
       return "Имя может содержать только латиницу, кириллицу, пробел или дефис";
     }
+  
     return "";
   };
 
