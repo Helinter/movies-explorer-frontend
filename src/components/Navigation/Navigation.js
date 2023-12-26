@@ -1,13 +1,10 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
-import { useState } from 'react';  // Добавьте импорт useState
-
-function Navigation() {
-  const isLoggedIn = true; // Замените на вашу логику проверки аутентификации
+function Navigation({isLogedin}) {
   const location = useLocation();
   const isMainPage = location.pathname === '/';
 
-  // Используйте useState для отслеживания состояния isContainerActive
   const [isContainerActive, setIsContainerActive] = useState(false);
 
   const buttonToggle = () => {
@@ -35,10 +32,10 @@ function Navigation() {
         <div className="overlay"></div>
       )}
 
-      {isLoggedIn ? (
+      {isLogedin ? (
         <section className={`navigation ${isContainerActive ? 'navigation_active' : ''}`}>
           {isContainerActive && (
-            <NavLink className="navigation__link" to="/" activeClassName="header__link_active">
+            <NavLink className="navigation__link" to="/" activeclassname="header__link_active">
               Главная
             </NavLink>
           )}

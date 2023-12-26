@@ -1,49 +1,125 @@
-import Header from '../Header/Header'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Header from '../Header/Header';
+import { Link, useNavigate } from 'react-router-dom';
+import { api } from '../../utils/MainApi';
+import { setToken } from '../TokenHelper/TokenHelper';
+import { useCurrentUser } from '../../context/CurrentUserContext';
+import { useFormWithValidation } from '../FormValidator/FormValidator';
 
-function Login() {
+function Login({ setIsLogedin }) {
+  const { updateCurrentUser } = useCurrentUser();
+  const navigate = useNavigate();
+  const {
+    values,
+    handleChange,
+    isValid,
+    validateEmail,
+    validatePassword,
+    errors,
+  } = useFormWithValidation();
+  const [hasErrors, setHasErrors] = useState(true); // Инициализируем как true
+
+  useEffect(() => {
+    // Проверка наличия ошибок в значениях
+    setHasErrors(
+      !!validateEmail(values.email) || !!validatePassword(values.password)
+    );
+  }, [values, validateEmail, validatePassword]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!hasErrors && isValid) {
+      try {
+        const response = await api.login(values.email, values.password);
+        if (response.token) {
+          setToken(response.token);
+          setIsLogedin(true);
+          const storedCurrentUser = localStorage.getItem('currentUser');
+          const userData = await api.getUserInfo();
+          if (userData) {
+            updateCurrentUser(userData);
+
+            if (!storedCurrentUser) {
+              localStorage.setItem('currentUser', JSON.stringify(userData));
+            }
+          }
+          navigate('/movies');
+        }
+      } catch (error) {
+        console.error('Ошибка авторизации:', error);
+      }
+    }
+  };
+
   return (
-  <>
-    <Header />
+    <>
+      <Header />
       <section className="register">
         <h1 className="register__title">Рады видеть!</h1>
-        <form >
+        <form onSubmit={handleLogin}>
           <div className="register__input-container">
             <input
               id="registerEmail"
-              className="signup__input"
+              className={`signup__input ${errors.email && 'signup__input_error'}`}
               minLength="2"
               maxLength="30"
               type="text"
-              name="formSignInEmail"
+              name="email"
               required
+              onChange={handleChange}
+              value={values.email || ''}
             />
-            <label className="register__input-label" for="registerEmail">E-mail</label>
+            {values.email && (
+              <span className="signup__error-message">
+                {validateEmail(values.email)}
+              </span>
+            )}
+            <label className="register__input-label" htmlFor="registerEmail">
+              E-mail
+            </label>
           </div>
+
           <div className="register__input-container">
             <input
               id="registerPassword"
-              className="signup__input"
+              className={`signup__input ${errors.password && 'signup__input_error'}`}
               minLength="2"
               maxLength="30"
               type="password"
-              name="formSignInPassword"
+              name="password"
               required
+              onChange={handleChange}
+              value={values.password || ''}
             />
-            <label className="register__input-label" for="registerPassword">Пароль</label>
+            {values.password && (
+              <span className="signup__error-message">
+                {validatePassword(values.password)}
+              </span>
+            )}
+            <label className="register__input-label" htmlFor="registerPassword">
+              Пароль
+            </label>
           </div>
-          <button type="submit" className="signin__button" id="SignInSubmit">
+
+          <button
+            type="submit"
+            className={`signin__button ${hasErrors && 'signin__button_disabled'}`}
+            id="SignInSubmit"
+            disabled={hasErrors}
+          >
             Войти
           </button>
+        </form>
 
-        </form >
-       
-          <p className="signup__link-q">Ещё не зарегистрированы?
-            <Link className="signup__link" to="/signup"> Регистрация</Link>
-          </p>
-      
-      </section >
-  </>
+        <p className="signup__link-q">
+          Ещё не зарегистрированы?
+          <Link className="signup__link" to="/signup">
+            Регистрация
+          </Link>
+        </p>
+      </section>
+    </>
   );
 }
 
