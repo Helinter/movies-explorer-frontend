@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({isLogedin}) {
   const location = useLocation();
   const isAuthPage = location.pathname === '/signin' || location.pathname === '/signup';
   const isMainPage = location.pathname === '/';
@@ -12,7 +12,7 @@ function Header() {
       <Link to="/" className={`header__logo${isAuthPage ? ' header__logo-auth' : ''}`}>
         <img src={logo} alt="Лого" />
       </Link>
-      {!isAuthPage && <Navigation />}
+      {!isAuthPage && <Navigation isLogedin={isLogedin}/>}
     </header>
   );
 }

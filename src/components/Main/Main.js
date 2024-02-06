@@ -6,13 +6,13 @@ import AboutMe from '../AboutMe/AboutMe'
 import Portfolio from '../Portfolio/Portfolio'
 import AboutProject from '../AboutProject/AboutProject'
 
+function Main({isLogedin}) {
 
-function Main() {
   return (
     <>
 
       <div className="sea-background">
-        <Header />
+        <Header isLogedin={isLogedin}/>
       </div>
       <section className="main">
         <div className="sea-background">
